@@ -1,0 +1,8 @@
+@import "../attribute/attribute.component.scss";
+
+:host {
+  width: min-content;
+}
+.name {
+  width: 15rem;
+}

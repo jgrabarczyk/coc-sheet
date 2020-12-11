@@ -106,6 +106,7 @@
     },
     "variable-name": {
       "options": [
+        "allow-trailing-underscore",        
         "ban-keywords",
         "check-format",
         "allow-pascal-case"
@@ -126,7 +127,7 @@
     "directive-class-suffix": true,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
-    "no-input-rename": true,
+    "no-input-rename": false,
     "no-inputs-metadata-property": true,
     "no-output-native": true,
     "no-output-on-prefix": true,

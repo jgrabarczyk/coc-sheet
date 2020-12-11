@@ -1,0 +1,52 @@
+@import "/src/assets/vars";
+$border: 1px solid $accent;
+:host {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  align-items: center;
+  text-align: center;
+  border: $border;
+  margin: 0.25rem;
+}
+
+:host {
+  // width: 11rem;
+}
+.name {
+  width: 7rem;
+}
+.full {
+  width: 2.5rem;
+  height: 2rem;
+}
+
+.full,
+.name {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  font-weight: 600;
+}
+
+.half,
+.extreme {
+  width: 1.25rem;
+  height: 1rem;
+  font-size: 75%;
+}
+
+.full,
+.half,
+.extreme {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-left: $border;
+}
+.half {
+  border-bottom: $border;
+}
+.name {
+  text-align: left;
+  padding: 0.25rem;
+}

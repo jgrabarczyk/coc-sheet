@@ -1,0 +1,38 @@
+@import "/src/assets/vars";
+$border: 1px solid $accent;
+:host {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  align-items: center;
+  text-align: center;
+  border: $border;
+  margin: 0.25rem;
+}
+
+.name {
+  width: min-content;
+}
+
+.name {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  font-weight: 600;
+}
+
+.name {
+  text-align: left;
+  padding: 0.25rem;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.25rem;
+  font-size: 75%;
+  max-height: 15px;
+  &--current {
+    font-weight: 600;
+  }
+}

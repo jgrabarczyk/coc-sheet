@@ -1,0 +1,8 @@
+@import "~@angular/material/theming";
+
+// mat-pink 500
+
+$primary: mat-color($mat-pink, 500);
+$accent: mat-color($mat-indigo, 300);
+$bg: #fff;
+$txt: #000;
