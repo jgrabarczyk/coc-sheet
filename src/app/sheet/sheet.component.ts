@@ -132,9 +132,10 @@ export class SheetComponent implements OnInit {
     return this.skillList_.filter(el => el.name === name).map(el => el.value)[0];
   }
 
-  public generate(): void {
-    this.attributeList_.forEach(attribute => {
-      attribute.roll();
+  public generateAttributes(): void {
+    this.attributeList_.map(attribute => {
+      attribute.value = attribute.diceRoll.roll() * 5;
     });
+    console.log(this.attributeList_);
   }
 }
