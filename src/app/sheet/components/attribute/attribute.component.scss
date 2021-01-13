@@ -2,22 +2,22 @@
 $border: 1px solid $accent;
 :host {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: calc(100% - 3rem) 2rem 1rem;
   grid-template-rows: repeat(2, 1fr);
   align-items: center;
   text-align: center;
   border: $border;
   margin: 0.25rem;
+  height: 2rem;
 }
 
 :host {
-  // width: 11rem;
 }
 .name {
-  width: 7rem;
+  // width: 7rem;
 }
 .full {
-  width: 2.5rem;
+  // width: 2.5rem;
   height: 2rem;
 }
 
@@ -30,7 +30,7 @@ $border: 1px solid $accent;
 
 .half,
 .extreme {
-  width: 1.25rem;
+  // width: 1.25rem;
   height: 1rem;
   font-size: 75%;
 }

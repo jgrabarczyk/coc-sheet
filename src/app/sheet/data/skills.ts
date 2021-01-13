@@ -1,280 +1,282 @@
 import { Skill } from '../interfaces/skill';
+import { SKILL_NAME } from './skill-name-enum';
+
 export const SKILL_LIST: Skill[] = [
     {
-        name: 'Antropologia',
+        name: SKILL_NAME.ANTHROPOLOGY,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Archeologia',
+        name: SKILL_NAME.ARCHAEOLOGY,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Broń Palna (Karabin/Strzelba)',
+        name: SKILL_NAME.FIREARMS_LONG,
         baseValue: 25,
         value: 0,
         checked: false
     },
     {
-        name: 'Broń Palna (Krótka)',
+        name: SKILL_NAME.FIREARMS_SHORT,
         baseValue: 20,
         value: 0,
         checked: false
     },
     {
-        name: 'Charakteryzacja',
+        name: SKILL_NAME.CHARACTERISATION,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Elektryka',
+        name: SKILL_NAME.ELECTRICS,
         baseValue: 10,
         value: 0,
         checked: false
     },
     {
-        name: 'Gadanina',
+        name: SKILL_NAME.TALK,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Historia',
+        name: SKILL_NAME.HISTORY,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Jeździectwo',
+        name: SKILL_NAME.EQUESTRIAN,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Język obcy',
+        name: SKILL_NAME.LANGUAGE_FOREIGN,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Język ojczysty',
+        name: SKILL_NAME.LANGUAGE_NATIVE,
         baseValue: 0,
         value: 0,
         checked: false
     },
     {
-        name: 'Korzystanie z Bibliotek',
+        name: SKILL_NAME.USING_LIBRARIES,
         baseValue: 20,
         value: 0,
         checked: false
     },
     {
-        name: 'Księgowość',
+        name: SKILL_NAME.ACCOUNTING,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Majętnośc',
+        name: SKILL_NAME.WEALTH,
         baseValue: 0,
         value: 0,
         checked: false
     },
     {
-        name: 'Mechanika',
+        name: SKILL_NAME.MECHANICS,
         baseValue: 10,
         value: 0,
         checked: false
     },
     {
-        name: 'Medycyna',
+        name: SKILL_NAME.MEDICINE,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Mity Cthulhu',
+        name: SKILL_NAME.CTHULHU_MYTHS,
         baseValue: 0,
         value: 0,
         checked: false
     },
     {
-        name: 'Nasłuchiwanie',
+        name: SKILL_NAME.LISTENING,
         baseValue: 20,
         value: 0,
         checked: false
     },
     {
-        name: 'Nauka ...',
+        name: SKILL_NAME.SCIENCE,
         baseValue: 1,
         value: 0,
         checked: false
     },
 
     {
-        name: 'Nawigacja',
+        name: SKILL_NAME.NAVIGATION,
         baseValue: 10,
         value: 0,
         checked: false
     },
 
     {
-        name: 'Obsługa cięzkiego sprzętu',
+        name: SKILL_NAME.HEAVY_EQUIPMENT,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Okultyzm',
+        name: SKILL_NAME.OCCULTISM,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Perswazja',
+        name: SKILL_NAME.PERSUASION,
         baseValue: 10,
         value: 0,
         checked: false
     },
     {
-        name: 'Pierwsza pomoc',
+        name: SKILL_NAME.FIRST_AID,
         baseValue: 30,
         value: 0,
         checked: false
     },
     {
-        name: 'Pilotaż',
+        name: SKILL_NAME.PILOT,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Pływanie',
+        name: SKILL_NAME.SWIMMING,
         baseValue: 20,
         value: 0,
         checked: false
     },
     {
-        name: 'Prawo',
+        name: SKILL_NAME.LAW,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Prowadzenie samochodu',
+        name: SKILL_NAME.DRIVING,
         baseValue: 20,
         value: 0,
         checked: false
     },
     {
-        name: 'Psychoanaliza',
+        name: SKILL_NAME.PSYCHOANALYSIS,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Psychologia',
+        name: SKILL_NAME.PSYCHOLOGY,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Rzucanie',
+        name: SKILL_NAME.THROWING,
         baseValue: 20,
         value: 0,
         checked: false
     },
 
     {
-        name: 'Skakanie',
+        name: SKILL_NAME.JUMPING,
         baseValue: 20,
         value: 0,
         checked: false
     },
     {
-        name: 'Spostrzegawczość',
+        name: SKILL_NAME.PERCEPTIVENESS,
         baseValue: 25,
         value: 0,
         checked: false
     },
     {
-        name: 'Sztuka rzemiosło',
+        name: SKILL_NAME.ART_CRAFTS,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Sztuka przetrwania',
+        name: SKILL_NAME.SURVIVAL,
         baseValue: 10,
         value: 0,
         checked: false
     },
     {
-        name: 'Ślusarstwo',
+        name: SKILL_NAME.LOCKSMITH,
         baseValue: 1,
         value: 0,
         checked: false
     },
     {
-        name: 'Tropienie',
+        name: SKILL_NAME.TRACKING,
         baseValue: 10,
         value: 0,
         checked: false
     },
     {
-        name: 'Ukrywanie',
+        name: SKILL_NAME.HIDING,
         baseValue: 20,
         value: 0,
         checked: false
     },
     {
-        name: 'Unik',
+        name: SKILL_NAME.DODGE,
         baseValue: 0,
         value: 0,
         checked: false
     },
     {
-        name: 'Urok osobisty',
+        name: SKILL_NAME.CHARM,
         baseValue: 15,
         value: 0,
         checked: false
     },
     {
-        name: 'Walka wręcz (bijatyka)',
+        name: SKILL_NAME.MELEE_BRAWL,
         baseValue: 25,
         value: 0,
         checked: false
     },
     {
-        name: 'Wiedza o naturze',
+        name: SKILL_NAME.NATURE,
         baseValue: 10,
         value: 0,
         checked: false
     },
     {
-        name: 'Wspinaczka',
+        name: SKILL_NAME.CLIMBING,
         baseValue: 20,
         value: 0,
         checked: false
     },
     {
-        name: 'Wycena',
+        name: SKILL_NAME.VALUATION,
         baseValue: 5,
         value: 0,
         checked: false
     },
     {
-        name: 'Zastraszanie',
+        name: SKILL_NAME.BULLYING,
         baseValue: 15,
         value: 0,
         checked: false
     },
     {
-        name: 'Zręcne palce',
+        name: SKILL_NAME.SLEIGHT_OF_HAND,
         baseValue: 10,
         value: 0,
         checked: false

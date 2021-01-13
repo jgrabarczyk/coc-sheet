@@ -1,39 +1,41 @@
 import { Attribute } from '../interfaces/attribute';
+import { ATTRIBUTE_NAME } from './attribute-name.enum';
+
 export const ATTRIBUTE_LIST: Attribute[] = [
     {
-        name: 'Siła',
-        value: 65,
-    },
-    {
-        name: 'Kondycja',
-        value: 80,
-    },
-    {
-        name: 'Budowa Ciała',
-        value: 75,
-    },
-    {
-        name: 'Zręczność',
-        value: 45,
-    },
-    {
-        name: 'Wygląd',
-        value: 40
-    },
-    {
-        name: 'Inteligencja',
+        name: ATTRIBUTE_NAME.STRENGTH,
         value: 50,
     },
     {
-        name: 'Moc',
-        value: 35,
+        name: ATTRIBUTE_NAME.CONDITION,
+        value: 50,
     },
     {
-        name: 'Wykształcenie',
-        value: 90,
+        name: ATTRIBUTE_NAME.BODY_STRUCTURE,
+        value: 50,
     },
     {
-        name: 'Szczęście',
-        value: 34,
+        name: ATTRIBUTE_NAME.AGILITY,
+        value: 50,
+    },
+    {
+        name: ATTRIBUTE_NAME.APPEARANCE,
+        value: 50
+    },
+    {
+        name: ATTRIBUTE_NAME.INTELLIGENCE,
+        value: 50,
+    },
+    {
+        name: ATTRIBUTE_NAME.MIGHT,
+        value: 50,
+    },
+    {
+        name: ATTRIBUTE_NAME.EDUCATION,
+        value: 50,
+    },
+    {
+        name: ATTRIBUTE_NAME.LUCK,
+        value: 50,
     }
 ];
