@@ -1,5 +1,5 @@
-import { Attribute } from './attribute';
+import { BasicAttribute } from './attribute';
 
-export type Stat = Attribute & {
+export type Stat = BasicAttribute & {
     currentValue: number
 };

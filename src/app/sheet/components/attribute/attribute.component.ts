@@ -1,23 +1,24 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { Attribute } from '../../interfaces/attribute';
+import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { BasicAttribute } from '../../interfaces/attribute';
 @Component({
   selector: 'coc-attribute',
   templateUrl: './attribute.component.html',
-  styleUrls: ['./attribute.component.scss']
+  styleUrls: ['./attribute.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AttributeComponent implements OnChanges {
+export class AttributeComponent {
 
   public half!: number;
   public extreme!: number;
-  @Input('attribute') attribute!: Attribute;
+  @Input('attribute') attribute!: BasicAttribute;
 
-  constructor() { }
+  constructor(private changeRef_: ChangeDetectorRef) { }
 
-  ngOnChanges(): void {
+  ngDoCheck(): void {
     this.updateValues(this.attribute);
+    this.changeRef_.detectChanges();
   }
-
-  updateValues(attribute: Attribute): void {
+  updateValues(attribute: BasicAttribute): void {
     if (!attribute) { return; }
 
     const half = Math.floor(attribute.value / 2);

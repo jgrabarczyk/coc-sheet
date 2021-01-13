@@ -1,3 +1,3 @@
-import { Attribute } from './attribute';
+import { BasicAttribute } from './attribute';
 
-export type Skill = Attribute & { checked: boolean, baseValue: number };
+export type Skill = BasicAttribute & { checked: boolean, baseValue: number };

@@ -1,40 +1,59 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AttributeComponent } from '../attribute/attribute.component';
 import { Skill } from '../../interfaces/skill';
-import { AttributeService } from '../../services/attribute.service';
+import { SKILL_NAME } from '../../data/skill-name-enum';
+import { ATTRIBUTE_NAME } from '../../data/attribute-name.enum';
+import { Attribute, ATTRIBUTE_LIST } from '../../data/attributes';
 
 @Component({
   selector: 'coc-skill',
   templateUrl: './skill.component.html',
   styleUrls: ['./skill.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SkillComponent extends AttributeComponent implements OnChanges {
+export class SkillComponent extends AttributeComponent {
+  @Input('attribute') skill_!: Skill;
+  private changed_ = 0;
+  private basicList_: Attribute[] = ATTRIBUTE_LIST;
 
-  @Input('attribute') public skill!: Skill;
-  constructor(private _attributeService: AttributeService) {
-    super();
+  constructor(changeRef_: ChangeDetectorRef) {
+    super(changeRef_);
   }
 
-  ngOnChanges(): void {
-    this.initValues(this.skill);
-    this.updateValues(this.skill);
+  get skill(): Skill {
+    return this.skill_;
+  }
+  get changed(): number {
+    return this.changed_;
   }
 
-  initValues(skill: Skill): void {
-    // enumy?
-    if (skill.name === 'Język ojczysty') {
-      skill.baseValue = this._attributeService.getAttribute('Wykształcenie').value;
+  ngDoCheck(): void {
+    this.initValues();
+
+    this.updateValues(this.skill_);
+  }
+
+
+  initValues(): void {
+    if (this.skill_.name === SKILL_NAME.LANGUAGE_NATIVE) {
+      this.skill_.baseValue = this.getAttribute(ATTRIBUTE_NAME.EDUCATION).value;
+      this.skill_.value = this.getAttribute(ATTRIBUTE_NAME.EDUCATION).value;
     }
 
-    // enumy?
-    if (skill.name === 'Unik') {
-      skill.baseValue = Math.floor(this._attributeService.getAttribute('Zręczność').value / 2);
+    if (this.skill_.name === SKILL_NAME.DODGE) {
+      this.skill_.baseValue = Math.floor(this.getAttribute(ATTRIBUTE_NAME.AGILITY).value / 2);
+      this.skill_.value = Math.floor(this.getAttribute(ATTRIBUTE_NAME.AGILITY).value / 2);
+
     }
 
-    if (skill.value < skill.baseValue) {
-      const tempVal: number = skill.value; skill.value = 0;
-      skill.value = skill.baseValue + tempVal;
+    if (this.skill.value < this.skill.baseValue) {
+      const tempVal: number = this.skill.value;
+      this.skill.value = 0;
+      this.skill.value = this.skill.baseValue + tempVal;
     }
+
+  }
+
+  private getAttribute(name: string): Attribute {
+    return this.basicList_.filter(el => el.name === name)[0];
   }
 }

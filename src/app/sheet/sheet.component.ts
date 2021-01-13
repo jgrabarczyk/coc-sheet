@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ATTRIBUTE_LIST } from './data/attributes';
-import { Attribute } from './interfaces/attribute';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ATTRIBUTE_LIST, Attribute } from './data/attributes';
 import { Skill } from './interfaces/skill';
 import { SKILL_LIST } from './data/skills';
 import { MOEVEMENT_STAT } from './data/movement-stat';
@@ -12,16 +11,17 @@ import { STAT_NAME } from '../share/enums/stat-name.enum';
 @Component({
   selector: 'coc-sheet',
   templateUrl: './sheet.component.html',
-  styleUrls: ['./sheet.component.scss']
+  styleUrls: ['./sheet.component.scss'],
 })
 export class SheetComponent implements OnInit {
-  private attributeList_!: Attribute[];
-  private skillList_!: Skill[];
+  private attributeList_: Attribute[] = ATTRIBUTE_LIST;
+  private skillList_: Skill[] = SKILL_LIST;
   private moevementStat_!: Stat;
   private sanityStat_!: Stat;
   private pwStat_!: Stat;
   private pmStat_!: Stat;
   private moStat_!: Stat;
+
   constructor() { }
 
   get attributeList(): Attribute[] {
@@ -52,8 +52,10 @@ export class SheetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.attributeList_ = ATTRIBUTE_LIST;
-    this.skillList_ = SKILL_LIST;
+    this.initStats();
+  }
+
+  ngDoCheck() {
     this.initStats();
   }
 
@@ -127,5 +129,11 @@ export class SheetComponent implements OnInit {
   }
   private getSkillVal(name: SKILL_NAME): number {
     return this.skillList_.filter(el => el.name === name).map(el => el.value)[0];
+  }
+
+  public generate(): void {
+    this.attributeList_.forEach(attribute => {
+      attribute.roll();
+    });
   }
 }

@@ -1,41 +1,72 @@
-import { Attribute } from '../interfaces/attribute';
+import { BasicAttribute } from '../interfaces/attribute';
 import { ATTRIBUTE_NAME } from './attribute-name.enum';
+import { DiceRoll } from '../classes/DiceRoll';
+
+export class Attribute extends BasicAttribute {
+    private diceRoll!: DiceRoll;
+
+    constructor(name: ATTRIBUTE_NAME, value: number, diceRoll: DiceRoll) {
+        super(name, value);
+        this.diceRoll = diceRoll;
+    }
+
+    public roll(): void {
+        this.value = 0;
+        for (let i = 0; i < this.diceRoll.throwsNo; i++) {
+            const roll = Math.floor(Math.random() * this.diceRoll.sides + 1);
+            this.value = this.value + roll;
+        }
+        this.value += this.diceRoll.modifier;
+        this.value *= 5;
+    }
+}
 
 export const ATTRIBUTE_LIST: Attribute[] = [
-    {
-        name: ATTRIBUTE_NAME.STRENGTH,
-        value: 50,
-    },
-    {
-        name: ATTRIBUTE_NAME.CONDITION,
-        value: 50,
-    },
-    {
-        name: ATTRIBUTE_NAME.BODY_STRUCTURE,
-        value: 50,
-    },
-    {
-        name: ATTRIBUTE_NAME.AGILITY,
-        value: 50,
-    },
-    {
-        name: ATTRIBUTE_NAME.APPEARANCE,
-        value: 50
-    },
-    {
-        name: ATTRIBUTE_NAME.INTELLIGENCE,
-        value: 50,
-    },
-    {
-        name: ATTRIBUTE_NAME.MIGHT,
-        value: 50,
-    },
-    {
-        name: ATTRIBUTE_NAME.EDUCATION,
-        value: 50,
-    },
-    {
-        name: ATTRIBUTE_NAME.LUCK,
-        value: 50,
-    }
+    new Attribute(
+        ATTRIBUTE_NAME.STRENGTH,
+        50,
+        new DiceRoll(3, 6, 0)
+    ),
+    new Attribute(
+        ATTRIBUTE_NAME.CONDITION,
+        50,
+        new DiceRoll(3, 6, 0)
+    ),
+    new Attribute(
+        ATTRIBUTE_NAME.BODY_STRUCTURE,
+        50,
+        new DiceRoll(2, 6, 6)
+    ),
+    new Attribute(
+        ATTRIBUTE_NAME.AGILITY,
+        50,
+        new DiceRoll(3, 6, 0)
+    ),
+    new Attribute(
+        ATTRIBUTE_NAME.APPEARANCE,
+        50,
+        new DiceRoll(3, 6, 0)
+    )
+    ,
+    new Attribute(
+        ATTRIBUTE_NAME.INTELLIGENCE,
+        50,
+        new DiceRoll(2, 6, 6)
+    )
+    ,
+    new Attribute(
+        ATTRIBUTE_NAME.MIGHT,
+        50,
+        new DiceRoll(3, 6, 0)
+    ),
+    new Attribute(
+        ATTRIBUTE_NAME.EDUCATION,
+        50,
+        new DiceRoll(2, 6, 6)
+    ),
+    new Attribute(
+        ATTRIBUTE_NAME.LUCK,
+        50,
+        new DiceRoll(3, 6, 0)
+    )
 ];
