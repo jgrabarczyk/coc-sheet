@@ -1,6 +1,6 @@
 import { STAT_NAME } from 'src/app/share/enums/stat-name.enum';
-import { ATTRIBUTE_NAME } from '../data/attribute-name.enum';
-import { SKILL_NAME } from '../data/skill-name-enum';
+import { ATTRIBUTE_NAME } from '../../share/enums/attribute-name.enum';
+import { SKILL_NAME } from '../../share/enums/skill-name-enum';
 
 export class BasicAttribute {
     public description?: string;

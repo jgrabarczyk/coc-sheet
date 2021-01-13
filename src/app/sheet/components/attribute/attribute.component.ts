@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { BasicAttribute } from '../../interfaces/attribute';
+import { BasicAttribute } from '../../classes/basic-attribute';
 @Component({
   selector: 'coc-attribute',
   templateUrl: './attribute.component.html',

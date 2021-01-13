@@ -1,12 +1,13 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ATTRIBUTE_LIST, Attribute } from './data/attributes';
+import { Component, OnInit } from '@angular/core';
+import { ATTRIBUTE_LIST } from './data/attributes';
 import { Skill } from './interfaces/skill';
 import { SKILL_LIST } from './data/skills';
 import { MOEVEMENT_STAT } from './data/movement-stat';
 import { Stat } from './interfaces/stat';
-import { SKILL_NAME } from './data/skill-name-enum';
-import { ATTRIBUTE_NAME } from './data/attribute-name.enum';
+import { SKILL_NAME } from '../share/enums/skill-name-enum';
+import { ATTRIBUTE_NAME } from '../share/enums/attribute-name.enum';
 import { STAT_NAME } from '../share/enums/stat-name.enum';
+import { Attribute } from './classes/attribute';
 
 @Component({
   selector: 'coc-sheet',

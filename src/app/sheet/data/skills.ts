@@ -1,5 +1,5 @@
 import { Skill } from '../interfaces/skill';
-import { SKILL_NAME } from './skill-name-enum';
+import { SKILL_NAME } from '../../share/enums/skill-name-enum';
 
 export const SKILL_LIST: Skill[] = [
     {

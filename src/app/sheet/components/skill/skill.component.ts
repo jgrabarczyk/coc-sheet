@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { AttributeComponent } from '../attribute/attribute.component';
+
+import { SKILL_NAME } from '../../../share/enums/skill-name-enum';
+import { ATTRIBUTE_NAME } from '../../../share/enums/attribute-name.enum';
+import { ATTRIBUTE_LIST } from '../../data/attributes';
+
+import { Attribute } from '../../classes/attribute';
 import { Skill } from '../../interfaces/skill';
-import { SKILL_NAME } from '../../data/skill-name-enum';
-import { ATTRIBUTE_NAME } from '../../data/attribute-name.enum';
-import { Attribute, ATTRIBUTE_LIST } from '../../data/attributes';
 
 @Component({
   selector: 'coc-skill',
