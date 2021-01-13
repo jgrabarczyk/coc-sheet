@@ -3,7 +3,7 @@
     umiejetnosci - skills
     uzbrojenie   - equipment
  -->
- <button (click)="generateAttributes()">generate</button>
+ <button (click)="generateAttributes()">Generuj</button>
  
  <div class="content">
 
@@ -11,20 +11,11 @@
       <coc-attribute  *ngFor="let attribute of attributeList " [attribute]="attribute"></coc-attribute>
    </div>
 
-   <!-- <div class="stats">
-      
-   </div> -->
    <div class="stats">
-      <coc-stat [stat]="moevementStat"></coc-stat>
-      <coc-stat [stat]="sanityStat"></coc-stat>
-      <coc-stat [stat]="pwStat"></coc-stat>
-      <coc-stat [stat]="pmStat"></coc-stat>
+      <coc-stat  *ngFor="let stat of statList " [stat]="stat"></coc-stat>
    </div>
    
    <div class="skills">
       <coc-skill  *ngFor="let skill of skillList" [attribute]="skill"></coc-skill>
    </div>
 </div>
-
-<!-- {{skillList.length}} -->
- <!-- Options selected: {{skills.selectedOptions.selected.length}} -->

@@ -1,42 +1,46 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AttributeComponent } from '../attribute/attribute.component';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { SKILL_NAME } from '../../../share/enums/skill-name-enum';
 import { ATTRIBUTE_NAME } from '../../../share/enums/attribute-name.enum';
 import { ATTRIBUTE_LIST } from '../../data/attributes';
 
 import { Attribute } from '../../classes/attribute';
-import { Skill } from '../../interfaces/skill';
+import { Skill } from '../../classes/skill';
+import { AttributeService } from '../../services/attribute.service';
 
+@UntilDestroy()
 @Component({
   selector: 'coc-skill',
   templateUrl: './skill.component.html',
   styleUrls: ['./skill.component.scss'],
 })
-export class SkillComponent extends AttributeComponent {
+export class SkillComponent extends AttributeComponent implements OnInit {
   @Input('attribute') skill_!: Skill;
-  private changed_ = 0;
   private basicList_: Attribute[] = ATTRIBUTE_LIST;
-
-  constructor(changeRef_: ChangeDetectorRef) {
-    super(changeRef_);
+  constructor(private attributeService_: AttributeService) {
+    super();
   }
 
   get skill(): Skill {
     return this.skill_;
   }
-  get changed(): number {
-    return this.changed_;
-  }
 
-  ngDoCheck(): void {
+  ngOnInit(): void {
     this.initValues();
-
-    this.updateValues(this.skill_);
+    this.updateOnAttributeChange();
   }
 
+  updateOnAttributeChange(): void {
+    this.attributeService_.attributeList$.pipe(untilDestroyed(this)).subscribe(
+      _ => {
+        this.initValues();
+      }
+    );
+  }
 
-  initValues(): void {
+  private initValues(): void {
     if (this.skill_.name === SKILL_NAME.LANGUAGE_NATIVE) {
       this.skill_.baseValue = this.getAttribute(ATTRIBUTE_NAME.EDUCATION).value;
       this.skill_.value = this.getAttribute(ATTRIBUTE_NAME.EDUCATION).value;
@@ -59,4 +63,5 @@ export class SkillComponent extends AttributeComponent {
   private getAttribute(name: string): Attribute {
     return this.basicList_.filter(el => el.name === name)[0];
   }
+
 }

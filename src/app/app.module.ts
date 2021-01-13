@@ -12,6 +12,8 @@ import { SkillComponent } from './sheet/components/skill/skill.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { StatComponent } from './sheet/components/stat/stat.component';
+import { HalfPipe } from './pipes/half.pipe';
+import { ExtremePipe } from './pipes/extreme.pipe';
 
 const material = [
   BrowserAnimationsModule,
@@ -25,7 +27,9 @@ const material = [
     SheetComponent,
     AttributeComponent,
     SkillComponent,
-    StatComponent
+    StatComponent,
+    HalfPipe,
+    ExtremePipe
   ],
   imports: [
     material,
