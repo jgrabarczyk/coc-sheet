@@ -8,6 +8,7 @@ import { Attribute } from './classes/attribute';
 import { AttributeService } from './services/attribute.service';
 import { SkillService } from './services/skill.service';
 import { StatService } from './services/stat.service';
+import { Proffesion, PROFFESION_LIST } from '../share/data/professions';
 
 @UntilDestroy()
 @Component({
@@ -18,12 +19,17 @@ import { StatService } from './services/stat.service';
 export class SheetComponent implements OnInit {
   private attributeList_!: Attribute[];
   private skillList_!: Skill[];
+  private proffessionList_: Proffesion[] = PROFFESION_LIST;
 
   constructor(
     private attributeService_: AttributeService,
     private skillService_: SkillService,
     private statService_: StatService
   ) { }
+
+  get proffessionList(): Proffesion[] {
+    return this.proffessionList_;
+  }
 
   get attributeList(): Attribute[] {
     return this.attributeList_;
@@ -57,11 +63,21 @@ export class SheetComponent implements OnInit {
   }
 
   public generateAttributes(): void {
+    /**
+     * @TODO move to service, left only tick like in statService
+     */
     this.attributeList_.forEach(attribute => {
       attribute.value = attribute.diceRoll.roll() * 5;
     });
-
     this.attributeService_.next(this.attributeList_);
+
     this.statService_.updateStats();
+
+    /**
+     * @TODO move to service, left only tick like in statService
+     */
+    this.proffessionList_.forEach(el =>
+      el.calcPoints());
   }
+
 }

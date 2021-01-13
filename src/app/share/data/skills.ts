@@ -1,5 +1,5 @@
-import { Skill } from '../classes/skill';
-import { SKILL_NAME } from '../../share/enums/skill-name-enum';
+import { Skill } from '../../sheet/classes/skill';
+import { SKILL_NAME } from '../enums/skill-name-enum';
 
 export const SKILL_LIST: Skill[] = [
     new Skill(

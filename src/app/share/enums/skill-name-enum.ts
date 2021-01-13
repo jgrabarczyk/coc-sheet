@@ -45,6 +45,8 @@ export enum SKILL_NAME {
     VALUATION = 'Wycena',
     BULLYING = 'Zastraszanie',
     SLEIGHT_OF_HAND = 'Zręcne palce',
+    FREE = 'Dowolna',
+    INTERPESONAL = 'Interpersonalna'
 }
 
 

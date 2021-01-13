@@ -4,7 +4,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { SKILL_NAME } from '../../../share/enums/skill-name-enum';
 import { ATTRIBUTE_NAME } from '../../../share/enums/attribute-name.enum';
-import { ATTRIBUTE_LIST } from '../../data/attributes';
+import { ATTRIBUTE_LIST } from '../../../share/data/attributes';
 
 import { Attribute } from '../../classes/attribute';
 import { Skill } from '../../classes/skill';
