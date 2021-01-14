@@ -23,12 +23,12 @@
    <ul>
       <li *ngFor="let proffession of proffessionList">
          <strong>nazwa:</strong> {{proffession.name}} <br>
+         <strong>majętność:</strong> {{proffession.wealth[0] }} - {{proffession.wealth[1] }} <br>
+         <strong>umiejętności:</strong> {{proffession.skills}} <br>
          <strong>do wydania z profesji:</strong> {{proffession.pointsProffesion}} <br>
          <strong>do wydania z hobby:</strong> {{proffession.pointsHobby}} <br>
          <strong>do wydania w sumie: {{proffession.pointsHobby + proffession.pointsProffesion }} </strong> <br>
 
-         <strong>umiejętności:</strong> {{proffession.skills}} <br>
-         <strong>majętność:</strong> {{proffession.wealth[0] }} - {{proffession.wealth[1] }} <br>
       </li>
    </ul>
    {{proffessionList.length}}
