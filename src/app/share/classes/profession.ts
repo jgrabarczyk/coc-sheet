@@ -1,18 +1,23 @@
-import { ProffesionAttributes } from 'src/app/share/data/professions';
 import { ATTRIBUTE_NAME } from 'src/app/share/enums/attribute-name.enum';
 import { SKILL_NAME } from 'src/app/share/enums/skill-name-enum';
 import { AttributeService } from 'src/app/share/services/attribute.service';
 import { Attribute } from './attribute';
 
-export class Proffesion {
-    public pointsProffesion!: number;
+export interface ProfessionAttributes {
+    attribute: ATTRIBUTE_NAME;
+    multiplier: number;
+    orIndex?: boolean;
+}
+
+export class Profession {
+    public pointsProfession!: number;
     public pointsHobby!: number;
 
     constructor(
         public name: string,
         public skills: Array<SKILL_NAME | SKILL_NAME[]>,
         public wealth: [number, number],
-        public ProfessionAttributes: ProffesionAttributes[],
+        public ProfessionAttributes: ProfessionAttributes[],
         private attributeService_: AttributeService
     ) {
         this.name = name;
@@ -23,15 +28,15 @@ export class Proffesion {
     }
 
     public calcPoints(): void {
-        this.calcProffesionPoints();
+        this.calcProfessionPoints();
         this.calcHobbyPoints();
     }
 
     /**
      * @TODO
-     * change proffession's points calculation due to multiple select possibility in proffesion's skills
+     * change profession's points calculation due to multiple select possibility in profesion's skills
      */
-    private calcProffesionPoints(): void {
+    private calcProfessionPoints(): void {
         let val = 0;
         const stashed: Attribute[] = [];
 
@@ -48,7 +53,7 @@ export class Proffesion {
             val += (maxValFromStashed * 2);
         }
 
-        this.pointsProffesion = val;
+        this.pointsProfession = val;
     }
 
     private calcHobbyPoints(): void {

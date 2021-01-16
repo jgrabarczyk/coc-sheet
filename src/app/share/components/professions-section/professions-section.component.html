@@ -1,0 +1,28 @@
+<mat-selection-list [multiple]="false">
+  <mat-list-option *ngFor="let profession of professionList">
+    <h4>{{ profession.name }}</h4>
+
+    <span>
+      <strong>majętność:</strong> {{ profession.wealth[0] }} -
+      {{ profession.wealth[1] }}
+    </span>
+
+    <span> <strong>umiejętności:</strong> {{ profession.skills }} </span>
+
+    <span>
+      <strong>do wydania z profesji:</strong>
+      {{ profession.pointsProfession }}
+    </span>
+
+    <span>
+      <strong>do wydania z hobby:</strong> {{ profession.pointsHobby }}
+    </span>
+
+    <span>
+      <strong
+        >do wydania w sumie:
+        {{ profession.pointsHobby + profession.pointsProfession }}
+      </strong>
+    </span>
+  </mat-list-option>
+</mat-selection-list>

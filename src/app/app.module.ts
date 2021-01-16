@@ -22,7 +22,7 @@ import { HalfPipe } from './share/pipes/half.pipe';
 import { ExtremePipe } from './share/pipes/extreme.pipe';
 import { NavbarComponent } from './share/components/navbar/navbar.component';
 import { AttributesSectionComponent } from './share/components/attributes-section/attributes-section.component';
-import { ProffesionsSectionComponent } from './share/components/proffesions-section/proffesions-section.component';
+import { ProfessionsSectionComponent } from './share/components/professions-section/professions-section.component';
 
 const material = [
   BrowserAnimationsModule,
@@ -43,7 +43,7 @@ const material = [
     StepperComponent,
     NavbarComponent,
     AttributesSectionComponent,
-    ProffesionsSectionComponent
+    ProfessionsSectionComponent
   ],
 
   imports: [

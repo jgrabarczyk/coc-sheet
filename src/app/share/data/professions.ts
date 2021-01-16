@@ -1,18 +1,14 @@
 import { SKILL_NAME } from '../enums/skill-name-enum';
 import { AttributeService } from '../services/attribute.service';
 import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
-import { Proffesion } from 'src/app/share/classes/proffesion';
+import { Profession } from 'src/app/share/classes/profession';
 
-export interface ProffesionAttributes {
-    attribute: ATTRIBUTE_NAME;
-    multiplier: number;
-    orIndex?: boolean;
-}
+
 
 const attributeService = new AttributeService();
 
-export const PROFFESION_LIST: Proffesion[] = [
-    new Proffesion(
+export const PROFESSION_LIST: Profession[] = [
+    new Profession(
         'Antykwariusz',
         [
             SKILL_NAME.LANGUAGE_FOREIGN,
@@ -39,7 +35,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Artysta',
         [
             [
@@ -81,7 +77,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Artysta estradowy',
         [
             SKILL_NAME.CHARACTERISATION,
@@ -118,7 +114,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Atleta',
         [
             SKILL_NAME.RIDING,
@@ -155,7 +151,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Bibliotekarz',
         [
             SKILL_NAME.LANGUAGE_NATIVE,
@@ -177,7 +173,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Bogaty hobbysta',
         [
             [
@@ -210,7 +206,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Człowiek plemienny',
         [
             SKILL_NAME.LISTENING,
@@ -245,7 +241,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Detektyw policji',
         [
             [
@@ -288,7 +284,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Duchowny',
         [
             SKILL_NAME.HISTORY,
@@ -314,7 +310,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Dziennikarz',
         [
             SKILL_NAME.LANGUAGE_NATIVE,
@@ -340,7 +336,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Fanatyk',
         [
             SKILL_NAME.HISTORY,
@@ -381,7 +377,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Farmer',
         [
             SKILL_NAME.MECHANICS,
@@ -418,7 +414,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         attributeService
     ),
 
-    new Proffesion(
+    new Profession(
         'Inżynier',
         [
             SKILL_NAME.ELECTRICS,
@@ -440,7 +436,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Lekarz',
         [
             SKILL_NAME.LANGUAGE_FOREIGN, // latin,
@@ -462,7 +458,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Misjonarz',
         [
             SKILL_NAME.MECHANICS,
@@ -489,7 +485,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Muzyk',
         [
             SKILL_NAME.LISTENING,
@@ -527,7 +523,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Oficer policji',
         [
             [
@@ -570,7 +566,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Oficer wojskowy',
         [
             [
@@ -615,7 +611,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Parapsycholog',
         [
             SKILL_NAME.ANTHROPOLOGY,
@@ -636,7 +632,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Pilot',
         [
             SKILL_NAME.ELECTRICS,
@@ -661,7 +657,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Pisarz',
         [
             SKILL_NAME.HISTORY,
@@ -685,7 +681,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Prawnik',
         [
             SKILL_NAME.USING_LIBRARIES,
@@ -716,7 +712,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Profesor',
         [
             SKILL_NAME.LANGUAGE_NATIVE,
@@ -737,7 +733,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Prywatny detektyw',
         [
             SKILL_NAME.CHARACTERISATION,
@@ -775,7 +771,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Przestępca',
         [
             SKILL_NAME.PSYCHOLOGY,
@@ -820,7 +816,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Tramp',
         [
             SKILL_NAME.LISTENING,
@@ -864,7 +860,7 @@ export const PROFFESION_LIST: Proffesion[] = [
         ],
         attributeService
     ),
-    new Proffesion(
+    new Profession(
         'Żołnierz',
         [
             [
