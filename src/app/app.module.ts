@@ -23,6 +23,7 @@ import { ExtremePipe } from './share/pipes/extreme.pipe';
 import { NavbarComponent } from './share/components/navbar/navbar.component';
 import { AttributesSectionComponent } from './share/components/attributes-section/attributes-section.component';
 import { ProfessionsSectionComponent } from './share/components/professions-section/professions-section.component';
+import { SkillsSectionComponent } from './share/components/skills-section/skills-section.component';
 
 const material = [
   BrowserAnimationsModule,
@@ -43,7 +44,8 @@ const material = [
     StepperComponent,
     NavbarComponent,
     AttributesSectionComponent,
-    ProfessionsSectionComponent
+    ProfessionsSectionComponent,
+    SkillsSectionComponent
   ],
 
   imports: [

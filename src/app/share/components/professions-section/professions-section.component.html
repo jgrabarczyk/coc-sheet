@@ -1,5 +1,12 @@
-<mat-selection-list [multiple]="false">
-  <mat-list-option *ngFor="let profession of professionList">
+<mat-selection-list
+  #professions
+  [multiple]="false"
+  (selectionChange)="onGroupsChange(professions.selectedOptions.selected)"
+>
+  <mat-list-option
+    *ngFor="let profession of professionList"
+    [value]="profession"
+  >
     <h4>{{ profession.name }}</h4>
 
     <span>

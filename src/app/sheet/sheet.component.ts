@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Skill } from '../share/classes/skill';
 import { Stat } from './interfaces/stat';
-import { SkillService } from '../share/services/skill.service';
 import { StatService } from '../share/services/stat.service';
+import { ProfessionService } from '../share/services/profession.service';
+import { Profession } from '../share/classes/profession';
 
 @UntilDestroy()
 @Component({
@@ -12,39 +12,35 @@ import { StatService } from '../share/services/stat.service';
   styleUrls: ['./sheet.component.scss'],
 })
 export class SheetComponent implements OnInit {
-  private skillList_!: Skill[];
   private statList_ !: Stat[];
-
+  private profession_!: Profession;
   constructor(
-    private skillService_: SkillService,
-    private statService_: StatService
+    private statService_: StatService,
+    private professionService_: ProfessionService
   ) { }
-
-  get skillList(): Skill[] {
-    return this.skillList_;
-  }
 
   get statList(): Stat[] {
     return this.statList_;
   }
 
-  public ngOnInit(): void {
-    this.subSkills();
-    this.subStats();
+  get profession(): Profession {
+    return this.profession_;
   }
 
-  private subSkills(): void {
-    this.skillService_.skillList$.pipe(untilDestroyed(this)).subscribe(
-      (list: Skill[]) => this.skillList_ = list,
-      (error) => console.error(`error: ${error}`)
-    );
+  public ngOnInit(): void {
+    this.subStats();
+    this.subProfession();
   }
 
   private subStats(): void {
-    this.statService_.statList$.subscribe(
+    this.statService_.statList$.pipe(untilDestroyed(this)).subscribe(
       (statList: Stat[]) => this.statList_ = statList,
       (error) => console.error(`error: ${error}`)
     );
   }
-
+  private subProfession(): void {
+    this.professionService_.currentProfession$.pipe(untilDestroyed(this)).subscribe(
+      profession => this.profession_ = profession
+    );
+  }
 }

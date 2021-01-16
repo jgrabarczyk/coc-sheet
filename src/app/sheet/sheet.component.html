@@ -3,15 +3,18 @@
     umiejetnosci - skills
     uzbrojenie   - equipment
  -->
- <div class="content">
+<div class="profession">
+  {{ profession?.name }}
+</div>
+<div class="content">
+  <coc-attributes-section
+    class="attributes"
+    [enable-roll]="true"
+  ></coc-attributes-section>
 
-   <coc-attributes-section class="attributes" [enable-roll]="true"></coc-attributes-section>
+  <div class="stats">
+    <coc-stat *ngFor="let stat of statList" [stat]="stat"></coc-stat>
+  </div>
 
-   <div class="stats">
-      <coc-stat  *ngFor="let stat of statList " [stat]="stat"></coc-stat>
-   </div>
-   
-   <div class="skills">
-      <coc-skill  *ngFor="let skill of skillList" [attribute]="skill"></coc-skill>
-   </div>
+  <coc-skills-section class="skills" [show-points]="false"></coc-skills-section>
 </div>

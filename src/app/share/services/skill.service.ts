@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 
 export class SkillService {
   private skillList_: Skill[] = SKILL_LIST;
-  private skillListSource = new BehaviorSubject<Skill[]>(this.skillList_);
+  private skillListSource = new BehaviorSubject<Skill[]>(SKILL_LIST);
   public skillList$ = this.skillListSource.asObservable();
 
   constructor() { }
@@ -27,6 +27,11 @@ export class SkillService {
     this.skillListSource.next(newList);
   }
 
+  public getDefaultValues(): void {
+    this.skillList_ = JSON.parse(JSON.stringify(SKILL_LIST));
+    this.next(this.skillList_);
+  }
+
   public reset(): void {
     this.skillList_.forEach(skill => skill.reset());
     this.next(this.skillList_);
@@ -35,5 +40,13 @@ export class SkillService {
   public save(): void {
     this.skillList_.forEach(skill => skill.save());
     this.next(this.skillList_);
+  }
+
+  public disableAll(): void {
+    this.skillList_.forEach(skill => skill.disabled = true);
+  }
+
+  public enableAll(): void {
+    this.skillList_.forEach(skill => skill.disabled = false);
   }
 }

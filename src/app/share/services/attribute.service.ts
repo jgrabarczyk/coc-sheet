@@ -27,9 +27,11 @@ export class AttributeService {
   }
 
   public update(): void {
+    this.attributeList_ = ATTRIBUTE_LIST;
     this.attributeList_.forEach(attribute => {
       attribute.value = attribute.diceRoll.roll() * 5;
     });
     this.next(this.attributeList_);
   }
+
 }

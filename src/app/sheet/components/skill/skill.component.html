@@ -13,7 +13,8 @@
     type="number"
     [min]="skill.baseValue"
     max="99"
-    [(ngModel)]="skill.value"
+    [ngModel]="skill.value"
+    (change)="update($event)"
   />
   <button (click)="reset()">X</button>
 </div>

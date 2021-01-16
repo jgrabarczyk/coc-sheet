@@ -1,0 +1,12 @@
+<div *ngIf="showPoints" class="points">
+  <div>Pozostało do wydania: {{ pointsToSpend }}</div>
+  <button (click)="save()">save</button>
+  <button (click)="edit()">edit</button>
+</div>
+
+<coc-skill
+  *ngFor="let skill of skillListToShow"
+  [skill]="skill"
+  (skillChange)="check()"
+  [pointsToSpend]="pointsToSpend"
+></coc-skill>

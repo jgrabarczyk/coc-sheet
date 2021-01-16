@@ -4,6 +4,7 @@ import { AttributeService } from 'src/app/share/services/attribute.service';
 import { Attribute } from '../../classes/attribute';
 import { ProfessionService } from '../../services/profession.service';
 import { StatService } from '../../services/stat.service';
+import { SkillService } from '../../services/skill.service';
 
 @UntilDestroy()
 @Component({
@@ -19,7 +20,8 @@ export class AttributesSectionComponent implements OnInit {
   constructor(
     private attributeService_: AttributeService,
     private professionService_: ProfessionService,
-    private statService_: StatService
+    private statService_: StatService,
+    private skillService_: SkillService
 
   ) { }
 
@@ -39,6 +41,7 @@ export class AttributesSectionComponent implements OnInit {
   }
 
   public generateAttributes(): void {
+    this.skillService_.getDefaultValues();
     this.attributeService_.update();
     this.professionService_.update();
     this.statService_.updateStats();

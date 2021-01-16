@@ -13,7 +13,7 @@ export class Skill extends BasicAttribute {
         public baseValue: number,
         public value: number = 0,
         public checked: boolean = false,
-        public disabled = false
+        public disabled = true
     ) {
         super(name, value);
         this.baseValue = baseValue;

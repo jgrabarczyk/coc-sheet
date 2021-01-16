@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AttributeComponent } from '../attribute/attribute.component';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
@@ -14,21 +14,24 @@ import { AttributeService } from '../../../share/services/attribute.service';
   templateUrl: './skill.component.html',
   styleUrls: ['./skill.component.scss'],
 })
+
 export class SkillComponent extends AttributeComponent implements OnInit {
-  @Input('attribute') skill_!: Skill;
+  @Input() skill!: Skill;
+  @Output() skillChange = new EventEmitter<Skill>();
+  @Input() pointsToSpend!: number;
 
-  constructor(private attributeService_: AttributeService) {
+
+  constructor(
+    private attributeService_: AttributeService,
+  ) {
     super();
-  }
-
-  get skill(): Skill {
-    return this.skill_;
   }
 
   public ngOnInit(): void {
     this.initValues();
     this.updateOnAttributeChange();
   }
+
 
   private updateOnAttributeChange(): void {
     this.attributeService_.attributeList$.pipe(untilDestroyed(this)).subscribe(
@@ -39,14 +42,14 @@ export class SkillComponent extends AttributeComponent implements OnInit {
   }
 
   private initValues(): void {
-    if (this.skill_.name === SKILL_NAME.LANGUAGE_NATIVE) {
-      this.skill_.baseValue = this.attributeService_.getVal(ATTRIBUTE_NAME.EDUCATION);
-      this.skill_.value = this.skill_.baseValue;
+    if (this.skill.name === SKILL_NAME.LANGUAGE_NATIVE) {
+      this.skill.baseValue = this.attributeService_.getVal(ATTRIBUTE_NAME.EDUCATION);
+      this.skill.value = this.skill.baseValue;
     }
 
-    if (this.skill_.name === SKILL_NAME.DODGE) {
-      this.skill_.baseValue = Math.floor(this.attributeService_.getVal(ATTRIBUTE_NAME.AGILITY) / 2);
-      this.skill_.value = this.skill_.baseValue;
+    if (this.skill.name === SKILL_NAME.DODGE) {
+      this.skill.baseValue = Math.floor(this.attributeService_.getVal(ATTRIBUTE_NAME.AGILITY) / 2);
+      this.skill.value = this.skill.baseValue;
     }
 
     if (this.skill.value < this.skill.baseValue) {
@@ -54,10 +57,31 @@ export class SkillComponent extends AttributeComponent implements OnInit {
       this.skill.value = 0;
       this.skill.value = this.skill.baseValue + tempVal;
     }
-
   }
 
   public reset(): void {
-    this.skill_.reset();
+    this.skill.value = this.skill.baseValue;
+    this.skillChange.emit(this.skill);
   }
+
+
+  public update(event: any): void {
+    let val: number = Number((event.target as HTMLInputElement).value);
+    // limit max value to 99
+    val = val > 99 ? 99 : val;
+    // limit min value to skill.baseValue
+    val = val < this.skill.baseValue ? this.skill.baseValue : val;
+    // check by how much the value has changed
+    const diferrence: number = (val - this.skill.value);
+    const pointsLeft: number = this.pointsToSpend - diferrence;
+
+    // set skill value to val
+    // if poinsLeft is negative number it decrase val prevent go over pontsToSpend cap
+    this.skill.value = pointsLeft > 0 ? val : val + (pointsLeft);
+
+    // assign modified value to input
+    event.target.value = this.skill.value;
+    this.skillChange.emit(this.skill);
+  }
+
 }

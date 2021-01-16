@@ -18,23 +18,29 @@
 
   <mat-step>
     <ng-template matStepLabel>Rozdaj puntky profesji</ng-template>
+    <coc-skills-section [show-points]="true" [point-type]="1">
+    </coc-skills-section>
 
     <div>
       <button mat-button matStepperPrevious>Powrót</button>
       <button mat-button matStepperNext>Dalej</button>
     </div>
   </mat-step>
+
   <mat-step>
     <ng-template matStepLabel>Rozdaj puntky hobby</ng-template>
+    <coc-skills-section [show-points]="true" [point-type]="2">
+    </coc-skills-section>
 
     <div>
       <button mat-button matStepperPrevious>Powrót</button>
       <button mat-button matStepperNext>Dalej</button>
     </div>
   </mat-step>
+
   <mat-step>
     <ng-template matStepLabel>Podsumowanie</ng-template>
-    <button mat-button>Zapisz</button>
+    <coc-sheet></coc-sheet>
     <div>
       <button mat-button matStepperPrevious>Powrót</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
