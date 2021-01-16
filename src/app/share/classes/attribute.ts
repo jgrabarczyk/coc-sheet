@@ -1,6 +1,6 @@
 import { BasicAttribute } from './basic-attribute';
 import { DiceRoll } from './DiceRoll';
-import { ATTRIBUTE_NAME } from '../../share/enums/attribute-name.enum';
+import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
 
 export class Attribute extends BasicAttribute {
 

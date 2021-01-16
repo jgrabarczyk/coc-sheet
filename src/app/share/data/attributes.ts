@@ -1,6 +1,6 @@
+import { DiceRoll } from '../classes/DiceRoll';
+import { Attribute } from '../classes/attribute';
 import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
-import { DiceRoll } from '../../sheet/classes/DiceRoll';
-import { Attribute } from '../../sheet/classes/attribute';
 
 export const ATTRIBUTE_LIST: Attribute[] = [
     new Attribute(

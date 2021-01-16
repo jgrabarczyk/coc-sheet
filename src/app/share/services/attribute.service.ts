@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ATTRIBUTE_LIST } from '../../share/data/attributes';
-import { ATTRIBUTE_NAME } from '../../share/enums/attribute-name.enum';
+import { ATTRIBUTE_LIST } from '../data/attributes';
+import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
 import { Attribute } from '../classes/attribute';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AttributeService {
   private attributeList_: Attribute[] = ATTRIBUTE_LIST;
   private attributeListSource = new BehaviorSubject<Attribute[]>(this.attributeList_);
@@ -21,7 +22,14 @@ export class AttributeService {
     return this.get(name).value;
   }
 
-  next(newList: Attribute[]): void {
+  public next(newList: Attribute[]): void {
     this.attributeListSource.next(newList);
+  }
+
+  public update(): void {
+    this.attributeList_.forEach(attribute => {
+      attribute.value = attribute.diceRoll.roll() * 5;
+    });
+    this.next(this.attributeList_);
   }
 }

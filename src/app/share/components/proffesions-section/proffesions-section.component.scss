@@ -1,0 +1,27 @@
+.mat-selection-list {
+  display: flex;
+  flex-wrap: wrap;
+  .mat-list-item {
+    height: auto !important;
+    flex: 0 1 50%;
+    padding: 0.5rem;
+    &:nth-child(4n - 1),
+    &:nth-child(4n) {
+      background-color: rgba(0, 255, 255, 0.303);
+    }
+
+    &.mat-list-single-selected-option {
+      background-color: rgba(0, 255, 255, 1);
+    }
+
+    .mat-list-text {
+      display: block;
+    }
+  }
+}
+
+h4,
+h5,
+strong {
+  font-weight: 600 !important;
+}

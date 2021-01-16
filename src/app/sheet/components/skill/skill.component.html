@@ -1,16 +1,27 @@
-
 <div class="name">
-    <mat-checkbox [checked]="skill.checked" color="primary">
-        {{skill.name}}
-    </mat-checkbox>
+  <mat-checkbox [checked]="skill.checked" color="primary">
+    {{ skill.name }}
+  </mat-checkbox>
 </div>
 
-<div class="full">
-    {{skill.value}}
+<div class="full" *ngIf="skill.disabled">
+  {{ skill.value }}
 </div>
+
+<div class="full" *ngIf="!skill.disabled">
+  <input
+    type="number"
+    [min]="skill.baseValue"
+    max="99"
+    [(ngModel)]="skill.value"
+  />
+  <button (click)="reset()">X</button>
+</div>
+
 <div class="half">
-    {{skill.value | half}}
+  {{ skill.value | half }}
 </div>
+
 <div class="extreme">
-    {{skill.value | extreme}}
+  {{ skill.value | extreme }}
 </div>
