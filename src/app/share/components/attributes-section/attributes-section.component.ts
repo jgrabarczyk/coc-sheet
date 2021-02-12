@@ -35,9 +35,9 @@ export class AttributesSectionComponent implements OnInit {
   }
 
   private subAttributes(): void {
-    this.attributeService_.fetchAttributes();
+    this.attributeService_.fetch();
 
-    this.attributeService_.attributeList$.pipe(untilDestroyed(this)).subscribe(
+    this.attributeService_.stream$.pipe(untilDestroyed(this)).subscribe(
       (list: Attribute[]) => {
         this.attributeList_ = list;
       },
@@ -49,13 +49,12 @@ export class AttributesSectionComponent implements OnInit {
 
   public generateAttributes(): void {
     this.skillService_.getDefaultValues();
-    this.attributeService_.update();
+    this.attributeService_.randomize();
     this.professionService_.update();
     this.statService_.updateStats();
-
   }
 
   public reset(): void {
-    this.attributeService_.fetchAttributes();
+    this.attributeService_.fetch();
   }
 }

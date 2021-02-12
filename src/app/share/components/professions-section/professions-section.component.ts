@@ -27,7 +27,7 @@ export class ProfessionsSectionComponent implements OnInit {
   }
 
   private subProfessions(): void {
-    this.professionService_.fetchProfessions();
+    this.professionService_.fetch();
     this.professionService_.professionList$.subscribe(
       professionList => this.professionList_ = professionList,
     );

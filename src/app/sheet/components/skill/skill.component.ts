@@ -33,7 +33,7 @@ export class SkillComponent extends AttributeComponent implements OnInit {
 
 
   private updateOnAttributeChange(): void {
-    this.attributeService_.attributeList$.pipe(untilDestroyed(this)).subscribe(
+    this.attributeService_.stream$.pipe(untilDestroyed(this)).subscribe(
       _ => this.initValues(),
       (error) => console.error(`error: ${error}`)
     );

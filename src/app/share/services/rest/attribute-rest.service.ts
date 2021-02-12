@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AttributeDTO } from '../../classes/attribute';
-import { Method, RestService } from './rest.service';
+import { Method, ServiceRestFactory } from './rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AttributeRestService extends RestService {
+export class AttributeRestService extends ServiceRestFactory<AttributeDTO> {
 
   constructor(http: HttpClient) {
     super(http);

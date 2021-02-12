@@ -43,8 +43,8 @@ export class SkillsSectionComponent implements OnInit {
   }
 
   private subSkills(): void {
-    this.skillService_.fetchSkills();
-    this.skillService_.skillList$.pipe(untilDestroyed(this)).subscribe(
+    this.skillService_.fetch();
+    this.skillService_.stream$.pipe(untilDestroyed(this)).subscribe(
       (list: Skill[]) => {
 
         if (this.pointType !== POINT_TYPE.PROFESSION && this.pointType !== POINT_TYPE.HOBBY) {
@@ -151,13 +151,13 @@ export class SkillsSectionComponent implements OnInit {
       }
     });
 
-    this.skillService_.next(this.skillList_);
+    this.skillService_.updateWith(this.skillList_);
     this.skillListToShow = JSON.parse(JSON.stringify(this.skillListToShow));
     this.skillListToShow.forEach(skill => skill.disabled = true);
 
     if (this.savedHobby_) {
       this.skillList_.forEach(el => el.disabled = true);
-      this.skillService_.next(this.skillList_);
+      this.skillService_.updateWith(this.skillList_);
     }
   }
 

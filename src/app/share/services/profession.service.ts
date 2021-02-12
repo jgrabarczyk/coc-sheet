@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { Profession, ProfessionDTO } from '../classes/profession';
 import { Points } from '../interfaces/points';
 import { ProfessionRestService } from './rest/profession-rest.service';
+import { ServiceFactory } from './service-factory';
 
 @Injectable({
   providedIn: 'root'
 })
 
-
-export class ProfessionService {
+export class ProfessionService extends ServiceFactory<ProfessionDTO, Profession>{
   private currentProfession_!: Profession;
   private currentProfessionSource_ = new Subject<Profession>();
   public currentProfession$ = this.currentProfessionSource_.asObservable();
@@ -25,26 +24,8 @@ export class ProfessionService {
 
   constructor(
     private professionRestService_: ProfessionRestService
-  ) { }
-
-
-  public fetchProfessions(): void {
-    this.professionRestService_.getAll().pipe(
-      map((response: ProfessionDTO[]) =>
-        response.map((el: ProfessionDTO) => {
-          return new Profession(el);
-        })
-      )
-    ).subscribe(
-      res => this.nextProfessions(res),
-      (error) => console.error(`error: ${error}`)
-
-    );
-  }
-
-
-  public current(): Profession[] {
-    return this.professionListSource.getValue();
+  ) {
+    super(professionRestService_, Profession);
   }
 
   nextProfessions(newList: Profession[]): void {

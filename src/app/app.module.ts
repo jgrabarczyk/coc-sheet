@@ -21,6 +21,7 @@ import { AttributeComponent } from './sheet/components/attribute/attribute.compo
 import { SkillComponent } from './sheet/components/skill/skill.component';
 import { StatComponent } from './sheet/components/stat/stat.component';
 import { SheetComponent } from './sheet/sheet.component';
+import { StatSectionComponent } from './share/components/stat-section/stat-section.component';
 
 const material = [
   BrowserAnimationsModule,
@@ -42,7 +43,8 @@ const material = [
     NavbarComponent,
     AttributesSectionComponent,
     ProfessionsSectionComponent,
-    SkillsSectionComponent
+    SkillsSectionComponent,
+    StatSectionComponent
   ],
 
   imports: [

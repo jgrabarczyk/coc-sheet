@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SkillDTO } from '../../classes/skill';
-import { Method, RestService } from './rest.service';
+import { Method, ServiceRestFactory } from './rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SkillRestService extends RestService {
+export class SkillRestService extends ServiceRestFactory<SkillDTO> {
 
   constructor(http: HttpClient) {
     super(http);

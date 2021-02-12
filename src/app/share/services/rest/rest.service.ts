@@ -44,7 +44,7 @@ export class Resource {
   observe?: 'body' | 'events' | 'response';
 }
 
-export class RestService {
+class RestService {
   constructor(
     protected http: HttpClient) { }
 
@@ -158,4 +158,12 @@ export class RestService {
       }
     }
   }
+}
+
+export abstract class ServiceRestFactory<T> extends RestService {
+  constructor(http: HttpClient) {
+    super(http);
+  }
+
+  public abstract getAll(): Observable<T[]>;
 }
