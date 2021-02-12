@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { PROFESSION_LIST } from '../data/professions';
-import { Profession } from '../classes/profession';
+import { map } from 'rxjs/operators';
+
+import { Profession, ProfessionDTO } from '../classes/profession';
 import { Points } from '../interfaces/points';
+import { ProfessionRestService } from './rest/profession-rest.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,11 +20,32 @@ export class ProfessionService {
   private pointsSource = new Subject<Points>();
   public points$ = this.pointsSource.asObservable();
 
-  private professionList_: Profession[] = PROFESSION_LIST;
-  private professionListSource = new BehaviorSubject<Profession[]>(this.professionList_);
+  private professionListSource = new BehaviorSubject<Profession[]>([]);
   public professionList$ = this.professionListSource.asObservable();
 
-  constructor() { }
+  constructor(
+    private professionRestService_: ProfessionRestService
+  ) { }
+
+
+  public fetchProfessions(): void {
+    this.professionRestService_.getAll().pipe(
+      map((response: ProfessionDTO[]) =>
+        response.map((el: ProfessionDTO) => {
+          return new Profession(el);
+        })
+      )
+    ).subscribe(
+      res => this.nextProfessions(res),
+      (error) => console.error(`error: ${error}`)
+
+    );
+  }
+
+
+  public current(): Profession[] {
+    return this.professionListSource.getValue();
+  }
 
   nextProfessions(newList: Profession[]): void {
     this.professionListSource.next(newList);
@@ -36,17 +60,17 @@ export class ProfessionService {
   }
 
   update(): void {
-    this.professionList_.forEach(el => el.calcPoints());
-    this.nextProfessions(this.professionList_);
+    // this.current().forEach(el => el.calcPoints());
+    // this.nextProfessions(this.current());
   }
 
   updateCurrentProfession(newProfession: Profession): void {
     this.currentProfession_ = newProfession;
-    console.log('hm?', this.currentProfession_);
     this.points_ = {
       profession: this.currentProfession_.pointsProfession,
       hobby: this.currentProfession_.pointsHobby
     };
+
     this.nextPoints(this.points_);
     this.nextCurrentProfession(this.currentProfession_);
   }

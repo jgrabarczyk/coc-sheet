@@ -1,7 +1,5 @@
 import { ATTRIBUTE_NAME } from 'src/app/share/enums/attribute-name.enum';
 import { SKILL_NAME } from 'src/app/share/enums/skill-name-enum';
-import { AttributeService } from 'src/app/share/services/attribute.service';
-import { Attribute } from './attribute';
 
 export interface ProfessionAttributes {
     attribute: ATTRIBUTE_NAME;
@@ -12,18 +10,19 @@ export interface ProfessionAttributes {
 export class Profession {
     public pointsProfession!: number;
     public pointsHobby!: number;
+    public name: string;
+    public skills: Array<SKILL_NAME | SKILL_NAME[]>;
+    public wealth: [number, number];
+    public professionAttributes: ProfessionAttributes[];
 
     constructor(
-        public name: string,
-        public skills: Array<SKILL_NAME | SKILL_NAME[]>,
-        public wealth: [number, number],
-        public ProfessionAttributes: ProfessionAttributes[],
-        private attributeService_: AttributeService
+        pDTO: ProfessionDTO
     ) {
-        this.name = name;
-        this.skills = skills;
-        this.wealth = wealth;
-        this.ProfessionAttributes = ProfessionAttributes;
+
+        this.name = pDTO.name;
+        this.skills = pDTO.skills;
+        this.wealth = pDTO.wealth;
+        this.professionAttributes = pDTO.professionAttributes;
         this.calcPoints();
     }
 
@@ -37,27 +36,35 @@ export class Profession {
      * change profession's points calculation due to multiple select possibility in profesion's skills
      */
     private calcProfessionPoints(): void {
-        let val = 0;
-        const stashed: Attribute[] = [];
+        // let val = 0;
+        // const stashed: Attribute[] = [];
 
-        this.ProfessionAttributes.forEach(el => {
-            if (el.orIndex) {
-                stashed.push(this.attributeService_.get(el.attribute));
-            } else {
-                val += this.attributeService_.getVal(el.attribute) * el.multiplier;
-            }
-        });
+        // this.ProfessionAttributes.forEach(el => {
+        //     const attribute: Attribute = this.attributeService_.get(el.attribute);
+        //     if (el.orIndex && attribute) {
+        //         stashed.push(this.attributeService_.get(el.attribute));
+        //     } else {
+        //         val += this.attributeService_.getVal(el.attribute) * el.multiplier;
+        //     }
+        // });
 
-        if (stashed.length) {
-            const maxValFromStashed = Math.max.apply(Math, stashed.map((o) => o.value));
-            val += (maxValFromStashed * 2);
-        }
+        // if (stashed.length) {
+        //     const maxValFromStashed = Math.max.apply(Math, stashed.map((o) => o.value));
+        //     val += (maxValFromStashed * 2);
+        // }
 
-        this.pointsProfession = val;
+        // this.pointsProfession = val;
     }
 
     private calcHobbyPoints(): void {
-        this.pointsHobby = this.attributeService_.getVal(ATTRIBUTE_NAME.INTELLIGENCE) * 2;
+        // this.pointsHobby = this.attributeService_.getVal(ATTRIBUTE_NAME.INTELLIGENCE) * 2;
     }
 
+}
+
+export interface ProfessionDTO {
+    name: string;
+    skills: Array<SKILL_NAME | SKILL_NAME[]>;
+    wealth: [number, number];
+    professionAttributes: ProfessionAttributes[];
 }

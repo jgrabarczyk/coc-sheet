@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Stat } from './interfaces/stat';
-import { StatService } from '../share/services/stat.service';
-import { ProfessionService } from '../share/services/profession.service';
+
 import { Profession } from '../share/classes/profession';
+import { ProfessionService } from '../share/services/profession.service';
+import { StatService } from '../share/services/stat.service';
+import { Stat } from './interfaces/stat';
 
 @UntilDestroy()
 @Component({
@@ -16,7 +17,7 @@ export class SheetComponent implements OnInit {
   private profession_!: Profession;
   constructor(
     private statService_: StatService,
-    private professionService_: ProfessionService
+    private professionService_: ProfessionService,
   ) { }
 
   get statList(): Stat[] {
@@ -28,6 +29,7 @@ export class SheetComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+
     this.subStats();
     this.subProfession();
   }
@@ -38,9 +40,12 @@ export class SheetComponent implements OnInit {
       (error) => console.error(`error: ${error}`)
     );
   }
+
   private subProfession(): void {
     this.professionService_.currentProfession$.pipe(untilDestroyed(this)).subscribe(
-      profession => this.profession_ = profession
+      profession => this.profession_ = profession,
+      (error) => console.error(`error: ${error}`)
     );
   }
+
 }

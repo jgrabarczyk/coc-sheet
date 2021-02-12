@@ -1,12 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { AttributeComponent } from '../attribute/attribute.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { SKILL_NAME } from '../../../share/enums/skill-name-enum';
-import { ATTRIBUTE_NAME } from '../../../share/enums/attribute-name.enum';
-
 import { Skill } from '../../../share/classes/skill';
+import { ATTRIBUTE_NAME } from '../../../share/enums/attribute-name.enum';
+import { SKILL_NAME } from '../../../share/enums/skill-name-enum';
 import { AttributeService } from '../../../share/services/attribute.service';
+import { AttributeComponent } from '../attribute/attribute.component';
 
 @UntilDestroy()
 @Component({
@@ -35,9 +34,8 @@ export class SkillComponent extends AttributeComponent implements OnInit {
 
   private updateOnAttributeChange(): void {
     this.attributeService_.attributeList$.pipe(untilDestroyed(this)).subscribe(
-      _ => {
-        this.initValues();
-      }
+      _ => this.initValues(),
+      (error) => console.error(`error: ${error}`)
     );
   }
 

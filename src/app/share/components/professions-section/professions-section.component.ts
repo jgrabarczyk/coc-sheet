@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PROFESSION_LIST } from '../../data/professions';
+import { MatListOption } from '@angular/material/list';
+
 import { Profession } from '../../classes/profession';
 import { ProfessionService } from '../../services/profession.service';
-import { MatListOption } from '@angular/material/list';
 import { SkillService } from '../../services/skill.service';
 
 @Component({
@@ -11,12 +11,11 @@ import { SkillService } from '../../services/skill.service';
   styleUrls: ['./professions-section.component.scss']
 })
 export class ProfessionsSectionComponent implements OnInit {
-  private professionList_: Profession[] = PROFESSION_LIST;
+  private professionList_: Profession[] = [];
 
   constructor(
     private professionService_: ProfessionService,
     private skillService_: SkillService
-
   ) { }
 
   get professionList(): Profession[] {
@@ -28,6 +27,7 @@ export class ProfessionsSectionComponent implements OnInit {
   }
 
   private subProfessions(): void {
+    this.professionService_.fetchProfessions();
     this.professionService_.professionList$.subscribe(
       professionList => this.professionList_ = professionList,
     );

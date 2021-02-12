@@ -1,25 +1,45 @@
 import { Injectable } from '@angular/core';
-import { ATTRIBUTE_LIST } from '../data/attributes';
-import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
-import { Attribute } from '../classes/attribute';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { Attribute, AttributeDTO } from '../classes/attribute';
+import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
+import { AttributeRestService } from './rest/attribute-rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AttributeService {
-  private attributeList_: Attribute[] = ATTRIBUTE_LIST;
-  private attributeListSource = new BehaviorSubject<Attribute[]>(this.attributeList_);
+  private attributeListSource = new BehaviorSubject<Attribute[]>([]);
   public attributeList$ = this.attributeListSource.asObservable();
 
-  constructor() { }
+  constructor(
+    private attributeRestService_: AttributeRestService
+  ) { }
+
+  public fetchAttributes(): void {
+    this.attributeRestService_.getAll()
+      .pipe(map(
+        (response: AttributeDTO[]) =>
+          response.map((el: AttributeDTO) => new Attribute(el))
+      ))
+      .subscribe(
+        (res: Attribute[]) => this.next(res),
+        (error) => console.error(`error: ${error}`)
+      );
+  }
+
+  public current(): Attribute[] {
+    return this.attributeListSource.getValue();
+  }
 
   public get(name: ATTRIBUTE_NAME): Attribute {
-    return this.attributeList_.filter(el => el.name === name)[0];
+    return this.current().filter(el => el.name === name)[0];
   }
+
   public getVal(name: ATTRIBUTE_NAME): number {
-    return this.get(name).value;
+    return this.get(name)?.value ? this.get(name).value : 0;
   }
 
   public next(newList: Attribute[]): void {
@@ -27,11 +47,11 @@ export class AttributeService {
   }
 
   public update(): void {
-    this.attributeList_ = ATTRIBUTE_LIST;
-    this.attributeList_.forEach(attribute => {
+    const current = this.current();
+    current.forEach(attribute => {
       attribute.value = attribute.diceRoll.roll() * 5;
     });
-    this.next(this.attributeList_);
+    this.next(current);
   }
 
 }

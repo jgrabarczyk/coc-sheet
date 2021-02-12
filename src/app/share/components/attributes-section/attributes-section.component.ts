@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import { Component, Input, OnInit } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AttributeService } from 'src/app/share/services/attribute.service';
+
 import { Attribute } from '../../classes/attribute';
 import { ProfessionService } from '../../services/profession.service';
-import { StatService } from '../../services/stat.service';
 import { SkillService } from '../../services/skill.service';
+import { StatService } from '../../services/stat.service';
 
 @UntilDestroy()
 @Component({
@@ -21,7 +22,7 @@ export class AttributesSectionComponent implements OnInit {
     private attributeService_: AttributeService,
     private professionService_: ProfessionService,
     private statService_: StatService,
-    private skillService_: SkillService
+    private skillService_: SkillService,
 
   ) { }
 
@@ -34,11 +35,17 @@ export class AttributesSectionComponent implements OnInit {
   }
 
   private subAttributes(): void {
+    this.attributeService_.fetchAttributes();
+
     this.attributeService_.attributeList$.pipe(untilDestroyed(this)).subscribe(
-      (list: Attribute[]) => this.attributeList_ = list,
+      (list: Attribute[]) => {
+        this.attributeList_ = list;
+      },
       (error) => console.error(`error: ${error}`)
     );
   }
+
+
 
   public generateAttributes(): void {
     this.skillService_.getDefaultValues();
@@ -48,6 +55,7 @@ export class AttributesSectionComponent implements OnInit {
 
   }
 
-
+  public reset(): void {
+    this.attributeService_.fetchAttributes();
+  }
 }
-

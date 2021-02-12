@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+
+import { Profession } from '../../classes/profession';
 import { Skill } from '../../classes/skill';
-import { SkillService } from '../../services/skill.service';
+import { POINT_TYPE } from '../../enums/point-type.enum';
+import { SKILL_NAME } from '../../enums/skill-name-enum';
 import { Points } from '../../interfaces/points';
 import { ProfessionService } from '../../services/profession.service';
-import { Profession } from '../../classes/profession';
-import { POINT_TYPE } from '../../enums/point-type.enum';
+import { SkillService } from '../../services/skill.service';
 
 @Component({
   selector: 'coc-skills-section',
@@ -40,8 +42,8 @@ export class SkillsSectionComponent implements OnInit {
     this.subCurrentProffesion();
   }
 
-
   private subSkills(): void {
+    this.skillService_.fetchSkills();
     this.skillService_.skillList$.pipe(untilDestroyed(this)).subscribe(
       (list: Skill[]) => {
 
@@ -61,7 +63,8 @@ export class SkillsSectionComponent implements OnInit {
       points => {
         this.points_ = points;
         this.resolvePointType();
-      }
+      },
+      (error) => console.error(`error: ${error}`)
 
     );
   }
@@ -84,7 +87,9 @@ export class SkillsSectionComponent implements OnInit {
       (profession: Profession) => {
         this.currentProfession_ = profession;
         this.enableProfessionSkills(profession);
-      }
+      },
+      (error) => console.error(`error: ${error}`)
+
     );
   }
 
@@ -92,7 +97,7 @@ export class SkillsSectionComponent implements OnInit {
     if (this.pointType === POINT_TYPE.PROFESSION) {
 
       this.skillList_.forEach((el: Skill) => {
-        if (profession.skills.indexOf(el.name) === -1) { return; }
+        if (profession.skills.indexOf(el.name as SKILL_NAME) === -1) { return; }
         el.disabled = false;
       });
     }
