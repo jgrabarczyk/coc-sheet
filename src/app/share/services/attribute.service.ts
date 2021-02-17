@@ -22,7 +22,7 @@ export class AttributeService extends ServiceFactory<AttributeDTO, Attribute> {
   }
 
   public getVal(name: ATTRIBUTE_NAME): number {
-    return this.get(name)?.value ? this.get(name).value : 0;
+    return this.get(name)?.value ? this.get(name)?.value : 0;
   }
 
   public randomize(): void {

@@ -15,13 +15,14 @@ import { AttributesSectionComponent } from './share/components/attributes-sectio
 import { NavbarComponent } from './share/components/navbar/navbar.component';
 import { ProfessionsSectionComponent } from './share/components/professions-section/professions-section.component';
 import { SkillsSectionComponent } from './share/components/skills-section/skills-section.component';
+import { StatSectionComponent } from './share/components/stat-section/stat-section.component';
 import { ExtremePipe } from './share/pipes/extreme.pipe';
 import { HalfPipe } from './share/pipes/half.pipe';
+import { ShareModule } from './share/share.module';
 import { AttributeComponent } from './sheet/components/attribute/attribute.component';
 import { SkillComponent } from './sheet/components/skill/skill.component';
 import { StatComponent } from './sheet/components/stat/stat.component';
 import { SheetComponent } from './sheet/sheet.component';
-import { StatSectionComponent } from './share/components/stat-section/stat-section.component';
 
 const material = [
   BrowserAnimationsModule,
@@ -52,8 +53,9 @@ const material = [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ShareModule,
+    FormsModule
   ],
 
   providers: [

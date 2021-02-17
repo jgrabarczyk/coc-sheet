@@ -23,7 +23,6 @@ export class AttributesSectionComponent implements OnInit {
     private professionService_: ProfessionService,
     private statService_: StatService,
     private skillService_: SkillService,
-
   ) { }
 
   get attributeList(): Attribute[] {

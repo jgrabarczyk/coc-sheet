@@ -16,7 +16,7 @@ export class StepperComponent {
   constructor(
     private formBuilder_: FormBuilder
   ) {
-    this.initFormArray();
+    // this.initFormArray();
   }
 
   private initFormArray(): void {
