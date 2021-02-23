@@ -17,6 +17,9 @@ export class AttributeService extends ServiceFactory<AttributeDTO, Attribute> {
     super(attributeRestService_, Attribute);
   }
 
+  public current(): Attribute[] {
+    return this.currentStreamValue();
+  }
   public get(name: ATTRIBUTE_NAME): Attribute {
     return this.currentStreamValue().filter(el => el.name === name)[0];
   }

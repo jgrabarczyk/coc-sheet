@@ -1,6 +1,8 @@
 import { ATTRIBUTE_NAME } from 'src/app/share/enums/attribute-name.enum';
 import { SKILL_NAME } from 'src/app/share/enums/skill-name-enum';
 
+import { Attribute } from './attribute';
+
 export interface ProfessionAttributes {
     attribute: ATTRIBUTE_NAME;
     multiplier: number;
@@ -16,48 +18,59 @@ export class Profession {
     public professionAttributes: ProfessionAttributes[];
 
     constructor(
-        pDTO: ProfessionDTO
+        pDTO: ProfessionDTO,
+        // private attributeService_: AttributeService
     ) {
-
         this.name = pDTO.name;
         this.skills = pDTO.skills;
         this.wealth = pDTO.wealth;
         this.professionAttributes = pDTO.professionAttributes;
-        this.calcPoints();
+        // this.calcPoints();
     }
 
-    public calcPoints(): void {
-        this.calcProfessionPoints();
-        this.calcHobbyPoints();
+    // method to calc summed points to spent for progress
+    public calcPoints(n: Attribute, m: Attribute[]): void {
+        this.calcHobbyPoints(n);
+        this.calcProfessionPoints(m);
     }
 
     /**
      * @TODO
      * change profession's points calculation due to multiple select possibility in profesion's skills
      */
-    private calcProfessionPoints(): void {
-        // let val = 0;
-        // const stashed: Attribute[] = [];
+    private calcProfessionPoints(m: Attribute[]): void {
+        if (m === undefined || !m.length) { return; }
 
-        // this.ProfessionAttributes.forEach(el => {
-        //     const attribute: Attribute = this.attributeService_.get(el.attribute);
-        //     if (el.orIndex && attribute) {
-        //         stashed.push(this.attributeService_.get(el.attribute));
-        //     } else {
-        //         val += this.attributeService_.getVal(el.attribute) * el.multiplier;
-        //     }
-        // });
+        let val = 0;
+        const stashed: Attribute[] = [];
 
-        // if (stashed.length) {
-        //     const maxValFromStashed = Math.max.apply(Math, stashed.map((o) => o.value));
-        //     val += (maxValFromStashed * 2);
-        // }
 
-        // this.pointsProfession = val;
+        // collect stash or set value
+        this.professionAttributes.forEach(el => {
+            const attribute: Attribute = m.filter(n => n.name === el.attribute)[0];
+            // if has multiple choice stash attribute
+            if (el.orIndex && attribute) {
+                stashed.push(attribute);
+
+            } else {
+                // just gett modifier
+                val += attribute.value * el.multiplier;
+            }
+        });
+
+        // get higher value if we have choice
+        if (stashed.length) {
+            const maxValFromStashed = Math.max.apply(Math, stashed.map((o) => o.value));
+            val += (maxValFromStashed * 2);
+        }
+
+        this.pointsProfession = val;
     }
 
-    private calcHobbyPoints(): void {
-        // this.pointsHobby = this.attributeService_.getVal(ATTRIBUTE_NAME.INTELLIGENCE) * 2;
+
+    private calcHobbyPoints(int: Attribute): void {
+        if (int === undefined) { return; }
+        this.pointsHobby = int.value * 2;
     }
 
 }

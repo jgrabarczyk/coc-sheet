@@ -1,5 +1,4 @@
-@import "../attribute/attribute.component.scss";
-
+@import "src/app/share/components/attribute/attribute-single/attribute.component.scss";
 :host {
   width: min-content;
   grid-template-columns: calc(100% - 7rem) 5rem 2rem;

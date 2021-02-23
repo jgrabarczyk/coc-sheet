@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { Profession } from '../../classes/profession';
-import { Skill } from '../../classes/skill';
-import { POINT_TYPE } from '../../enums/point-type.enum';
-import { SKILL_NAME } from '../../enums/skill-name-enum';
-import { Points } from '../../interfaces/points';
-import { ProfessionService } from '../../services/profession.service';
-import { SkillService } from '../../services/skill.service';
+import { Profession } from '../../../classes/profession';
+import { Skill } from '../../../classes/skill';
+import { POINT_TYPE } from '../../../enums/point-type.enum';
+import { SKILL_NAME } from '../../../enums/skill-name-enum';
+import { Points } from '../../../interfaces/points';
+import { ProfessionService } from '../../../services/profession.service';
+import { SkillService } from '../../../services/skill.service';
 
 @Component({
   selector: 'coc-skills-section',
@@ -15,6 +15,10 @@ import { SkillService } from '../../services/skill.service';
   styleUrls: ['./skills-section.component.scss']
 })
 
+/**
+ * umozliwic przekazywnie skilli,
+ * jesli skille nie przekazane generowac jak swiezy komponent
+ */
 @UntilDestroy()
 export class SkillsSectionComponent implements OnInit {
   @Input('show-points') showPoints!: boolean;
@@ -43,7 +47,8 @@ export class SkillsSectionComponent implements OnInit {
   }
 
   private subSkills(): void {
-    this.skillService_.fetch();
+
+    this.skillService_.fetchCollection();
     this.skillService_.stream$.pipe(untilDestroyed(this)).subscribe(
       (list: Skill[]) => {
 

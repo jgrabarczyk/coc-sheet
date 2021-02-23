@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 
@@ -9,14 +9,5 @@ import { UntilDestroy } from '@ngneat/until-destroy';
   templateUrl: './sheet.component.html',
   styleUrls: ['./sheet.component.scss'],
 })
-export class SheetComponent implements OnInit {
-
-  constructor(
-    // private professionService_: ProfessionService,
-  ) { }
-
-
-  public ngOnInit(): void {
-  }
-
+export class SheetComponent {
 }

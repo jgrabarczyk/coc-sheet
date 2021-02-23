@@ -26,7 +26,7 @@ export class SkillService extends ServiceFactory<SkillDTO, Skill>{
   }
 
   public getDefaultValues(): void {
-    this.fetch();
+    this.fetchCollection();
   }
 
   public reset(): void {

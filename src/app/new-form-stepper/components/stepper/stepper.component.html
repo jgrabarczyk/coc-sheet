@@ -1,22 +1,23 @@
 <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
   <mat-step>
     <ng-template matStepLabel>Wygeneruj Atrybuty</ng-template>
+    <coc-button-panel></coc-button-panel>
     <coc-attributes-section [enable-roll]="true"></coc-attributes-section>
     <div>
       <button mat-button matStepperNext>Dalej</button>
     </div>
   </mat-step>
 
-  <!-- <mat-step>
+  <mat-step>
     <ng-template matStepLabel>Wybierz profesję</ng-template>
     <coc-professions-section></coc-professions-section>
     <div>
       <button mat-button matStepperPrevious>Powrót</button>
       <button mat-button matStepperNext>Dalej</button>
     </div>
-  </mat-step> -->
+  </mat-step>
 
-  <!-- <mat-step>
+  <mat-step>
     <ng-template matStepLabel>Rozdaj puntky profesji</ng-template>
     <coc-skills-section [show-points]="true" [point-type]="1">
     </coc-skills-section>
@@ -25,7 +26,7 @@
       <button mat-button matStepperPrevious>Powrót</button>
       <button mat-button matStepperNext>Dalej</button>
     </div>
-  </mat-step> -->
+  </mat-step>
 
   <!-- <mat-step>
     <ng-template matStepLabel>Rozdaj puntky hobby</ng-template>

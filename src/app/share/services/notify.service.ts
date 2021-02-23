@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 
+import { ShareModule } from '../share.module';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: ShareModule
 })
 export class NotifyService {
 

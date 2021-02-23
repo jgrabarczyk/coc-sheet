@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Stat } from 'src/app/sheet/interfaces/stat';
 
-import { StatService } from '../../services/stat.service';
+import { StatService } from '../../../services/stat.service';
 
 @UntilDestroy()
 @Component({

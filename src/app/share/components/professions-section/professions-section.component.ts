@@ -27,9 +27,10 @@ export class ProfessionsSectionComponent implements OnInit {
   }
 
   private subProfessions(): void {
-    this.professionService_.fetch();
-    this.professionService_.professionList$.subscribe(
-      professionList => this.professionList_ = professionList,
+    this.professionService_.stream$.subscribe(
+      professionList => {
+        this.professionList_ = professionList;
+      }
     );
   }
 
@@ -37,5 +38,6 @@ export class ProfessionsSectionComponent implements OnInit {
     this.skillService_.disableAll();
     this.professionService_.updateCurrentProfession(newOption[0].value);
   }
+
 
 }

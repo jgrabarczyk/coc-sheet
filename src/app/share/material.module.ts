@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -29,6 +30,7 @@ const material = [
   MatTooltipModule,
   MatExpansionModule,
   MatCheckboxModule,
+  MatStepperModule
 ];
 @NgModule({
   imports: [material],

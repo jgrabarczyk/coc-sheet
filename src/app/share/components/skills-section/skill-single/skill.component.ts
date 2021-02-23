@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { Skill } from '../../../share/classes/skill';
-import { ATTRIBUTE_NAME } from '../../../share/enums/attribute-name.enum';
-import { SKILL_NAME } from '../../../share/enums/skill-name-enum';
-import { AttributeService } from '../../../share/services/attribute.service';
-import { AttributeComponent } from '../attribute/attribute.component';
+import { Skill } from '../../../classes/skill';
+import { ATTRIBUTE_NAME } from '../../../enums/attribute-name.enum';
+import { SKILL_NAME } from '../../../enums/skill-name-enum';
+import { AttributeService } from '../../../services/attribute.service';
+import { AttributeComponent } from '../../attribute/attribute-single/attribute.component';
+
+
 
 @UntilDestroy()
 @Component({
