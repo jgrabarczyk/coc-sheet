@@ -1,13 +1,13 @@
 
 export class DiceRoll {
-    constructor(
-        public throwsNo: number,
-        public sides: number,
-        public modifier: number,
-    ) {
-        this.throwsNo = throwsNo;
-        this.sides = sides;
-        this.modifier = modifier;
+    public throwsNo: number;
+    public sides: number;
+    public modifier: number;
+
+    constructor(dr: DiceRollI) {
+        this.throwsNo = dr.throwsNo;
+        this.sides = dr.sides;
+        this.modifier = dr.modifier;
     }
 
     public roll(): number {
@@ -19,4 +19,10 @@ export class DiceRoll {
 
         return (value + this.modifier);
     }
+}
+
+export interface DiceRollI {
+    throwsNo: number;
+    sides: number;
+    modifier: number;
 }

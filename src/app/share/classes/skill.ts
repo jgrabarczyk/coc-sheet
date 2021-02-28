@@ -1,5 +1,5 @@
-import { BasicAttribute } from './basic-attribute';
 import { SKILL_NAME } from '../enums/skill-name-enum';
+import { BasicAttribute } from './basic-attribute';
 
 /**
  * @TODO
@@ -7,16 +7,15 @@ import { SKILL_NAME } from '../enums/skill-name-enum';
  * ART_CRAFT: Photography/Kaligraphy/Painting etc.
  */
 export class Skill extends BasicAttribute {
+    public baseValue: number;
 
     constructor(
-        public name: SKILL_NAME,
-        public baseValue: number,
-        public value: number = 0,
+        sDTO: SkillDTO,
         public checked: boolean = false,
         public disabled = true
     ) {
-        super(name, value);
-        this.baseValue = baseValue;
+        super(sDTO.name, sDTO.value || 0);
+        this.baseValue = sDTO.baseValue;
         this.checked = checked;
         this.disabled = disabled;
     }
@@ -27,5 +26,18 @@ export class Skill extends BasicAttribute {
 
     public save(): void {
         this.baseValue = this.value;
+    }
+}
+
+export class SkillDTO {
+    constructor(
+        public name: SKILL_NAME,
+        public baseValue: number,
+        public value: number
+    ) {
+
+        this.name = name;
+        this.value = value;
+        this.baseValue = baseValue;
     }
 }

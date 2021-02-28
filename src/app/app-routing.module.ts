@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { SheetComponent } from './sheet/sheet.component';
+import { RouterModule, Routes } from '@angular/router';
+
 import { StepperComponent } from './new-form-stepper/components/stepper/stepper.component';
 
 const routes: Routes = [
-  { path: 'new', component: StepperComponent },
-  { path: '', component: SheetComponent },
-  { path: '**', redirectTo: '', }
+  { path: '', component: StepperComponent },
+  // { path: '', component: SheetComponent },
+  // { path: '**', redirectTo: '', }
 ];
 
 @NgModule({

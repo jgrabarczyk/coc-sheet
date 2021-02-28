@@ -1,0 +1,964 @@
+{
+  "attributes": [
+    {
+      "name": "Siła",
+      "value": 45,
+      "diceRoll": {
+        "throwsNo": 3,
+        "sides": 6,
+        "modifier": 0
+      }
+    },
+    {
+      "name": "Kondycja",
+      "value": 60,
+      "diceRoll": {
+        "throwsNo": 3,
+        "sides": 6,
+        "modifier": 0
+      }
+    },
+    {
+      "name": "Budowa Ciała",
+      "value": 65,
+      "diceRoll": {
+        "throwsNo": 2,
+        "sides": 6,
+        "modifier": 6
+      }
+    },
+    {
+      "name": "Zręczność",
+      "value": 40,
+      "diceRoll": {
+        "throwsNo": 3,
+        "sides": 6,
+        "modifier": 0
+      }
+    },
+    {
+      "name": "Wygląd",
+      "value": 55,
+      "diceRoll": {
+        "throwsNo": 3,
+        "sides": 6,
+        "modifier": 0
+      }
+    },
+    {
+      "name": "Inteligencja",
+      "value": 55,
+      "diceRoll": {
+        "throwsNo": 2,
+        "sides": 6,
+        "modifier": 6
+      }
+    },
+    {
+      "name": "Moc",
+      "value": 40,
+      "diceRoll": {
+        "throwsNo": 3,
+        "sides": 6,
+        "modifier": 0
+      }
+    },
+    {
+      "name": "Wykształcenie",
+      "value": 40,
+      "diceRoll": {
+        "throwsNo": 2,
+        "sides": 6,
+        "modifier": 6
+      }
+    },
+    {
+      "name": "Szczęście",
+      "value": 50,
+      "diceRoll": {
+        "throwsNo": 3,
+        "sides": 6,
+        "modifier": 0
+      }
+    }
+  ],
+  "professions": [
+    {
+      "name": "Antykwariusz",
+      "skills": [
+        "Język obcy",
+        "Korzystanie z Bibliotek",
+        "Historia",
+        "Spostrzegawczość",
+        "Sztuka rzemiosło",
+        "Wycena",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna"
+      ],
+      "wealth": [10, 70],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Artysta",
+      "skills": [
+        ["Historia", "Wiedza o naturze"],
+        "Język obcy",
+        "Spostrzegawczość",
+        "Psychologia",
+        "Sztuka rzemiosło",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [9, 50],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Moc",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Artysta estradowy",
+      "skills": [
+        "Charakteryzacja",
+        "Nasłuchiwanie",
+        "Psychologia",
+        "Sztuka rzemiosło",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [9, 70],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Wygląd",
+          "multiplier": 2
+        }
+      ]
+    },
+    {
+      "name": "Atleta",
+      "skills": [
+        "Jeździectwo",
+        "Pływanie",
+        "Rzucanie",
+        "Skakanie",
+        "Walka wręcz (bijatyka)",
+        "Wspinaczka",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna"
+      ],
+      "wealth": [9, 70],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Bibliotekarz",
+      "skills": [
+        "Język ojczysty",
+        "Język obcy",
+        "Korzystanie z Bibliotek",
+        "Księgowość",
+        "Dowolna",
+        "Dowolna",
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [9, 35],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Bogaty hobbysta",
+      "skills": [
+        ["Broń Palna (Karabin/Strzelba)", "Broń Palna (Krótka)"],
+        "Jeździectwo",
+        "Język obcy",
+        "Sztuka rzemiosło",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [50, 99],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Wygląd",
+          "multiplier": 2
+        }
+      ]
+    },
+    {
+      "name": "Człowiek plemienny",
+      "skills": [
+        "Nasłuchiwanie",
+        "Okultyzm",
+        "Pływanie",
+        ["Rzucanie", "Walka wręcz (bijatyka)"],
+        "Spostrzegawczość",
+        "Sztuka przetrwania",
+        "Wiedza o naturze",
+        "Wspinaczka"
+      ],
+      "wealth": [0, 15],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Detektyw policji",
+      "skills": [
+        ["Broń Palna (Krótka)", "Broń Palna (Karabin/Strzelba)"],
+        ["Charakteryzacja", "Sztuka rzemiosło"],
+        "Nasłuchiwanie",
+        "Prawo",
+        "Psychologia",
+        "Spostrzegawczość",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna"
+      ],
+      "wealth": [20, 50],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Duchowny",
+      "skills": [
+        "Historia",
+        "Język obcy",
+        "Korzystanie z Bibliotek",
+        "Księgowość",
+        "Nasłuchiwanie",
+        "Psychologia",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna"
+      ],
+      "wealth": [9, 60],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Dziennikarz",
+      "skills": [
+        "Język ojczysty",
+        "Korzystanie z Bibliotek",
+        "Historia",
+        "Sztuka rzemiosło",
+        "Psychologia",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [9, 60],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Fanatyk",
+      "skills": [
+        "Historia",
+        "Psychologia",
+        "Ukrywanie",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [0, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Wygląd",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Moc",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Farmer",
+      "skills": [
+        "Mechanika",
+        "Obsługa cięzkiego sprzętu",
+        "Prowadzenie samochodu",
+        "Sztuka rzemiosło",
+        "Tropienie",
+        "Wiedza o naturze",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna"
+      ],
+      "wealth": [9, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Inżynier",
+      "skills": [
+        "Elektryka",
+        "Korzystanie z Bibliotek",
+        "Mechanika",
+        "Obsługa cięzkiego sprzętu",
+        "Nauka ...",
+        "Nauka ...",
+        "Sztuka rzemiosło",
+        "Dowolna"
+      ],
+      "wealth": [30, 60],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Lekarz",
+      "skills": [
+        "Język obcy",
+        "Medycyna",
+        "Nauka ...",
+        "Nauka ...",
+        "Pierwsza pomoc",
+        "Psychologia",
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [30, 80],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Misjonarz",
+      "skills": [
+        "Mechanika",
+        "Pierwsza pomoc",
+        "Sztuka rzemiosło",
+        "Wiedza o naturze",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [0, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Muzyk",
+      "skills": [
+        "Nasłuchiwanie",
+        "Psychologia",
+        "Sztuka rzemiosło",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna",
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [9, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Moc",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Oficer policji",
+      "skills": [
+        ["Broń Palna (Karabin/Strzelba)", "Broń Palna (Krótka)"],
+        "Pierwsza pomoc",
+        "Prawo",
+        "Psychologia",
+        "Spostrzegawczość",
+        "Walka wręcz (bijatyka)",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        ["Prowadzenie samochodu", "Jeździectwo"]
+      ],
+      "wealth": [9, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Oficer wojskowy",
+      "skills": [
+        ["Broń Palna (Karabin/Strzelba)", "Broń Palna (Krótka)"],
+        "Księgowość",
+        "Nawigacja",
+        "Psychologia",
+        "Sztuka przetrwania",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna"
+      ],
+      "wealth": [20, 70],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Parapsycholog",
+      "skills": [
+        "Antropologia",
+        "Historia",
+        "Język obcy",
+        "Korzystanie z Bibliotek",
+        "Okultyzm",
+        "Psychologia",
+        "Sztuka rzemiosło",
+        "Dowolna"
+      ],
+      "wealth": [9, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Pilot",
+      "skills": [
+        "Elektryka",
+        "Mechanika",
+        "Nauka ...",
+        "Nawigacja",
+        "Obsługa cięzkiego sprzętu",
+        "Prowadzenie samochodu",
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [20, 70],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2
+        }
+      ]
+    },
+    {
+      "name": "Pisarz",
+      "skills": [
+        "Historia",
+        "Język ojczysty",
+        "Język obcy",
+        "Korzystanie z Bibliotek",
+        "Psychologia",
+        "Sztuka rzemiosło",
+        ["Wiedza o naturze", "Okultyzm"],
+        "Dowolna"
+      ],
+      "wealth": [9, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Prawnik",
+      "skills": [
+        "Korzystanie z Bibliotek",
+        "Prawo",
+        "Księgowość",
+        "Psychologia",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [30, 80],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Profesor",
+      "skills": [
+        "Język ojczysty",
+        "Język obcy",
+        "Korzystanie z Bibliotek",
+        "Psychologia",
+        "Dowolna",
+        "Dowolna",
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [30, 80],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 4
+        }
+      ]
+    },
+    {
+      "name": "Prywatny detektyw",
+      "skills": [
+        "Charakteryzacja",
+        "Korzystanie z Bibliotek",
+        "Prawo",
+        "Psychologia",
+        "Spostrzegawczość",
+        "Sztuka rzemiosło",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna"
+      ],
+      "wealth": [9, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Przestępca",
+      "skills": [
+        "Psychologia",
+        "Spostrzegawczość",
+        "Ukrywanie",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        [
+          "Broń Palna (Karabin/Strzelba)",
+          "Broń Palna (Krótka)",
+          "Charakteryzacja",
+          "Mechanika",
+          "Ślusarstwo",
+          "Wycena",
+          "Walka wręcz (bijatyka)",
+          "Zręcne palce"
+        ]
+      ],
+      "wealth": [5, 65],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Tramp",
+      "skills": [
+        "Nasłuchiwanie",
+        "Nawigacja",
+        "Skakanie",
+        "Ukrywanie",
+        "Wspinaczka",
+        ["Perswazja", "Urok osobisty", "Zastraszanie", "Gadanina"],
+        "Dowolna",
+        "Dowolna"
+      ],
+      "wealth": [0, 5],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Wygląd",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    },
+    {
+      "name": "Żołnierz",
+      "skills": [
+        ["Broń Palna (Karabin/Strzelba)", "Broń Palna (Krótka)"],
+        ["Pływanie", "Wspinaczka"],
+        "Sztuka przetrwania",
+        "Ukrywanie",
+        "Unik",
+        "Walka wręcz (bijatyka)",
+        ["Język obcy", "Mechanika", "Pierwsza pomoc"]
+      ],
+      "wealth": [9, 30],
+      "professionAttributes": [
+        {
+          "attribute": "Wykształcenie",
+          "multiplier": 2
+        },
+        {
+          "attribute": "Zręczność",
+          "multiplier": 2,
+          "orIndex": true
+        },
+        {
+          "attribute": "Siła",
+          "multiplier": 2,
+          "orIndex": true
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Antropologia",
+      "baseValue": 1
+    },
+    {
+      "name": "Archeologia",
+      "baseValue": 1
+    },
+    {
+      "name": "Broń Palna (Karabin/Strzelba)",
+      "baseValue": 25
+    },
+    {
+      "name": "Broń Palna (Krótka)",
+      "baseValue": 20
+    },
+    {
+      "name": "Charakteryzacja",
+      "baseValue": 5
+    },
+    {
+      "name": "Elektryka",
+      "baseValue": 10
+    },
+    {
+      "name": "Gadanina",
+      "baseValue": 5
+    },
+    {
+      "name": "Historia",
+      "baseValue": 5
+    },
+    {
+      "name": "Jeździectwo",
+      "baseValue": 5
+    },
+    {
+      "name": "Język obcy",
+      "baseValue": 1
+    },
+    {
+      "name": "Język ojczysty",
+      "baseValue": 70
+    },
+    {
+      "name": "Korzystanie z Bibliotek",
+      "baseValue": 20
+    },
+    {
+      "name": "Księgowość",
+      "baseValue": 5
+    },
+    {
+      "name": "Majętnośc",
+      "baseValue": 1
+    },
+    {
+      "name": "Mechanika",
+      "baseValue": 10
+    },
+    {
+      "name": "Medycyna",
+      "baseValue": 1
+    },
+    {
+      "name": "Mity Cthulhu",
+      "baseValue": 0
+    },
+    {
+      "name": "Nasłuchiwanie",
+      "baseValue": 20
+    },
+    {
+      "name": "Nauka ...",
+      "baseValue": 1
+    },
+    {
+      "name": "Nawigacja",
+      "baseValue": 10
+    },
+    {
+      "name": "Obsługa cięzkiego sprzętu",
+      "baseValue": 1
+    },
+    {
+      "name": "Okultyzm",
+      "baseValue": 5
+    },
+    {
+      "name": "Perswazja",
+      "baseValue": 10
+    },
+    {
+      "name": "Pierwsza pomoc",
+      "baseValue": 30
+    },
+    {
+      "name": "Pilotaż",
+      "baseValue": 1
+    },
+    {
+      "name": "Pływanie",
+      "baseValue": 20
+    },
+    {
+      "name": "Prawo",
+      "baseValue": 5
+    },
+    {
+      "name": "Prowadzenie samochodu",
+      "baseValue": 20
+    },
+    {
+      "name": "Psychoanaliza",
+      "baseValue": 1
+    },
+    {
+      "name": "Psychologia",
+      "baseValue": 1
+    },
+    {
+      "name": "Rzucanie",
+      "baseValue": 20
+    },
+    {
+      "name": "Skakanie",
+      "baseValue": 20
+    },
+    {
+      "name": "Spostrzegawczość",
+      "baseValue": 25
+    },
+    {
+      "name": "Sztuka rzemiosło",
+      "baseValue": 5
+    },
+    {
+      "name": "Sztuka przetrwania",
+      "baseValue": 10
+    },
+    {
+      "name": "Ślusarstwo",
+      "baseValue": 1
+    },
+    {
+      "name": "Tropienie",
+      "baseValue": 10
+    },
+    {
+      "name": "Ukrywanie",
+      "baseValue": 20
+    },
+    {
+      "name": "Unik",
+      "baseValue": 30
+    },
+    {
+      "name": "Urok osobisty",
+      "baseValue": 15
+    },
+    {
+      "name": "Walka wręcz (bijatyka)",
+      "baseValue": 25
+    },
+    {
+      "name": "Wiedza o naturze",
+      "baseValue": 10
+    },
+    {
+      "name": "Wspinaczka",
+      "baseValue": 20
+    },
+    {
+      "name": "Wycena",
+      "baseValue": 5
+    },
+    {
+      "name": "Zastraszanie",
+      "baseValue": 15
+    },
+    {
+      "name": "Zręcne palce",
+      "baseValue": 10
+    }
+  ]
+}

@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { PROFESSION_LIST } from '../data/professions';
-import { Profession } from '../classes/profession';
+import { take } from 'rxjs/operators';
+import { AttributeService } from 'src/app/share/services/attribute.service';
+
+import { Attribute } from '../classes/attribute';
+import { Profession, ProfessionDTO } from '../classes/profession';
+import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
 import { Points } from '../interfaces/points';
+import { ProfessionRestService } from './rest/profession-rest.service';
+import { ServiceFactory } from './service-factory';
+
 @Injectable({
   providedIn: 'root'
 })
 
-
-export class ProfessionService {
-  private currentProfession_!: Profession;
+export class ProfessionService extends ServiceFactory<ProfessionDTO, Profession>{
   private currentProfessionSource_ = new Subject<Profession>();
   public currentProfession$ = this.currentProfessionSource_.asObservable();
 
@@ -17,38 +22,62 @@ export class ProfessionService {
   private pointsSource = new Subject<Points>();
   public points$ = this.pointsSource.asObservable();
 
-  private professionList_: Profession[] = PROFESSION_LIST;
-  private professionListSource = new BehaviorSubject<Profession[]>(this.professionList_);
+  private professionListSource = new BehaviorSubject<Profession[]>([]);
   public professionList$ = this.professionListSource.asObservable();
 
-  constructor() { }
-
-  nextProfessions(newList: Profession[]): void {
-    this.professionListSource.next(newList);
+  constructor(
+    private professionRestService_: ProfessionRestService,
+    private attributeService_: AttributeService
+  ) {
+    super(professionRestService_, Profession);
   }
 
-  nextPoints(newPoints: Points): void {
+  public nextPoints(newPoints: Points): void {
     this.pointsSource.next(newPoints);
   }
 
-  nextCurrentProfession(newCurrentProfession: Profession): void {
+  private nextCurrentProfession(newCurrentProfession: Profession): void {
     this.currentProfessionSource_.next(newCurrentProfession);
+
   }
 
-  update(): void {
-    this.professionList_.forEach(el => el.calcPoints());
-    this.nextProfessions(this.professionList_);
+  public calcPointsForAll(): void {
+    const attributes: Attribute[] = this.attributeService_.current();
+    const int: Attribute = this.attributeService_.get(ATTRIBUTE_NAME.INTELLIGENCE);
+    const list: Profession[] = this.currentStreamValue();
+
+    this.resolveDataPending();
+
+    list.forEach(el => {
+      el.calcPoints(int, attributes);
+    });
+
+    this.passNextValueToSubject(list);
   }
 
-  updateCurrentProfession(newProfession: Profession): void {
-    this.currentProfession_ = newProfession;
-    console.log('hm?', this.currentProfession_);
+  private resolveDataPending(): void {
+    // if not pending then skip
+    if (!this.isPending_.getValue()) {
+      return;
+    }
+
+    // make sure to calc after new set of data arrive
+    this.pending$.pipe(take(2)).subscribe(res => {
+      if (res) { return; }
+      this.calcPointsForAll();
+    });
+  }
+
+  public updateCurrentProfession(newProfession: Profession): void {
+    const attributes: Attribute[] = this.attributeService_.current();
+    const int: Attribute = this.attributeService_.get(ATTRIBUTE_NAME.INTELLIGENCE);
+    newProfession.calcPoints(int, attributes);
     this.points_ = {
-      profession: this.currentProfession_.pointsProfession,
-      hobby: this.currentProfession_.pointsHobby
+      profession: newProfession.pointsProfession,
+      hobby: newProfession.pointsHobby
     };
     this.nextPoints(this.points_);
-    this.nextCurrentProfession(this.currentProfession_);
+    this.nextCurrentProfession(newProfession);
   }
 
 }

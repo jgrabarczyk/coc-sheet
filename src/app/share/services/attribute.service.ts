@@ -1,37 +1,39 @@
 import { Injectable } from '@angular/core';
-import { ATTRIBUTE_LIST } from '../data/attributes';
+
+import { Attribute, AttributeDTO } from '../classes/attribute';
 import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
-import { Attribute } from '../classes/attribute';
-import { BehaviorSubject } from 'rxjs';
+import { AttributeRestService } from './rest/attribute-rest.service';
+import { ServiceFactory } from './service-factory';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AttributeService {
-  private attributeList_: Attribute[] = ATTRIBUTE_LIST;
-  private attributeListSource = new BehaviorSubject<Attribute[]>(this.attributeList_);
-  public attributeList$ = this.attributeListSource.asObservable();
+export class AttributeService extends ServiceFactory<AttributeDTO, Attribute> {
 
-  constructor() { }
+  constructor(
+    private attributeRestService_: AttributeRestService,
+  ) {
+    super(attributeRestService_, Attribute);
+  }
 
+  public current(): Attribute[] {
+    return this.currentStreamValue();
+  }
   public get(name: ATTRIBUTE_NAME): Attribute {
-    return this.attributeList_.filter(el => el.name === name)[0];
+    return this.currentStreamValue().filter(el => el.name === name)[0];
   }
+
   public getVal(name: ATTRIBUTE_NAME): number {
-    return this.get(name).value;
+    return this.get(name)?.value ? this.get(name)?.value : 0;
   }
 
-  public next(newList: Attribute[]): void {
-    this.attributeListSource.next(newList);
-  }
-
-  public update(): void {
-    this.attributeList_ = ATTRIBUTE_LIST;
-    this.attributeList_.forEach(attribute => {
-      attribute.value = attribute.diceRoll.roll() * 5;
-    });
-    this.next(this.attributeList_);
+  public randomize(): void {
+    this.passNextValueToSubject(
+      this.currentStreamValue().map(attribute => ({
+        ...attribute,
+        value: attribute.diceRoll.roll() * 5
+      })));
   }
 
 }

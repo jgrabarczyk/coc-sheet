@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Stat } from '../../interfaces/stat';
+
+import { Stat } from '../../../../sheet/interfaces/stat';
 
 @Component({
   selector: 'coc-stat',

@@ -1,52 +1,55 @@
 import { Injectable } from '@angular/core';
+
+import { Skill, SkillDTO } from '../classes/skill';
 import { SKILL_NAME } from '../enums/skill-name-enum';
-import { SKILL_LIST } from '../data/skills';
-import { Skill } from '../classes/skill';
-import { BehaviorSubject } from 'rxjs';
+import { SkillRestService } from './rest/skill-rest.service';
+import { ServiceFactory } from './service-factory';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class SkillService {
-  private skillList_: Skill[] = SKILL_LIST;
-  private skillListSource = new BehaviorSubject<Skill[]>(SKILL_LIST);
-  public skillList$ = this.skillListSource.asObservable();
+export class SkillService extends ServiceFactory<SkillDTO, Skill>{
+  constructor(
+    private skillRestService_: SkillRestService
+  ) {
+    super(skillRestService_, Skill);
+  }
 
-  constructor() { }
 
   public get(name: SKILL_NAME): Skill {
-    return this.skillList_.filter(el => el.name === name)[0];
+    return this.currentStreamValue().filter(el => el.name === name)[0];
   }
 
   public getVal(name: SKILL_NAME): number {
-    return this.get(name).value;
-  }
-
-  public next(newList: Skill[]): void {
-    this.skillListSource.next(newList);
+    return this.get(name)?.value;
   }
 
   public getDefaultValues(): void {
-    this.skillList_ = JSON.parse(JSON.stringify(SKILL_LIST));
-    this.next(this.skillList_);
+    this.fetchCollection();
   }
 
   public reset(): void {
-    this.skillList_.forEach(skill => skill.reset());
-    this.next(this.skillList_);
+    this.currentStreamValue().forEach(skill => skill.reset());
+    this.passNextValueToSubject(this.currentStreamValue());
   }
 
   public save(): void {
-    this.skillList_.forEach(skill => skill.save());
-    this.next(this.skillList_);
+    this.currentStreamValue().forEach(skill => skill.save());
+    this.passNextValueToSubject(this.currentStreamValue());
   }
 
   public disableAll(): void {
-    this.skillList_.forEach(skill => skill.disabled = true);
+    this.currentStreamValue().forEach(skill => skill.disabled = true);
   }
 
   public enableAll(): void {
-    this.skillList_.forEach(skill => skill.disabled = false);
+    this.currentStreamValue().forEach(skill => skill.disabled = false);
+  }
+
+
+  public updateWith(list: Skill[]): void {
+    this.passNextValueToSubject(list);
+
   }
 }
