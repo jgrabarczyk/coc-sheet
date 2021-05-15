@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AttributeService } from './attribute.service';
-import { SkillService } from './skill.service';
 import { STAT_NAME } from '../enums/stat-name.enum';
 import { SKILL_NAME } from '../enums/skill-name-enum';
 import { ATTRIBUTE_NAME } from '../enums/attribute-name.enum';
 import { Stat } from '../../sheet/interfaces/stat';
 import { BehaviorSubject } from 'rxjs';
+import { Store } from '@ngxs/store';
+import { SkillSelectors } from 'src/app/store/skills/skill.selectors';
+import { AttributeSelectors } from 'src/app/store/attrubutes/attributes.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,7 @@ export class StatService {
   public statList$ = this.statListSource.asObservable();
 
   constructor(
-    private attributeService_: AttributeService,
-    private skillService_: SkillService
+    private store: Store,
   ) {
     this.updateStats();
   }
@@ -55,9 +55,10 @@ export class StatService {
   }
 
   private calcMovementStat(): void {
-    const strengthVal = this.attributeService_.getVal(ATTRIBUTE_NAME.STRENGTH);
-    const bodyStructureVal = this.attributeService_.getVal(ATTRIBUTE_NAME.BODY_STRUCTURE);
-    const agilityVal = this.attributeService_.getVal(ATTRIBUTE_NAME.AGILITY);
+
+    const strengthVal = this.getAttributeVal(ATTRIBUTE_NAME.STRENGTH);
+    const bodyStructureVal = this.getAttributeVal(ATTRIBUTE_NAME.BODY_STRUCTURE);
+    const agilityVal = this.getAttributeVal(ATTRIBUTE_NAME.AGILITY);
 
     let val = 0;
 
@@ -83,18 +84,19 @@ export class StatService {
   }
 
   private calcSanity(): void {
-    const mightValue = this.attributeService_.getVal(ATTRIBUTE_NAME.MIGHT);
+    const mightValue = this.getAttributeVal(ATTRIBUTE_NAME.MIGHT);
+
 
     this.sanityStat_ = {
       name: STAT_NAME.SANITY,
-      value: 99 - this.skillService_.getVal(SKILL_NAME.CTHULHU_MYTHS),
+      value: 99 - this.getSkillValue(SKILL_NAME.CTHULHU_MYTHS),
       currentValue: mightValue
     };
   }
 
   private calcPW(): void {
-    const strengthVal = this.attributeService_.getVal(ATTRIBUTE_NAME.STRENGTH);
-    const bodyStructureVal = this.attributeService_.getVal(ATTRIBUTE_NAME.BODY_STRUCTURE);
+    const strengthVal = this.getAttributeVal(ATTRIBUTE_NAME.STRENGTH);
+    const bodyStructureVal = this.getAttributeVal(ATTRIBUTE_NAME.BODY_STRUCTURE);
     const val = Math.floor((strengthVal + bodyStructureVal) / 10);
 
     this.pwStat_ = {
@@ -105,7 +107,7 @@ export class StatService {
   }
 
   private calcPM(): void {
-    const mightValue = this.attributeService_.getVal(ATTRIBUTE_NAME.MIGHT);
+    const mightValue = this.getAttributeVal(ATTRIBUTE_NAME.MIGHT);
     const val = Math.floor(mightValue / 5);
 
     this.pmStat_ = {
@@ -115,4 +117,11 @@ export class StatService {
     };
   }
 
+  private getAttributeVal(name: ATTRIBUTE_NAME): number {
+    return this.store.selectSnapshot(AttributeSelectors.attributeValue(name));
+  }
+
+  private getSkillValue(name: SKILL_NAME): number {
+    return this.store.selectSnapshot(SkillSelectors.skillValue(name));
+  }
 }

@@ -1,25 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-
-import { AttributeService } from '../../services/attribute.service';
-import { ProfessionService } from '../../services/profession.service';
+import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { AttributeActions } from 'src/app/store/attrubutes/attributes.actions';
+import { ProfessionsActions } from 'src/app/store/proffessions/proffesions.actions';
 
 @Component({
   selector: 'coc-button-panel',
   templateUrl: './button-panel.component.html',
   styleUrls: ['./button-panel.component.scss']
 })
-export class ButtonPanelComponent implements OnInit {
+export class ButtonPanelComponent  {
 
   constructor(
-    private attributeService_: AttributeService,
-    private professionService_: ProfessionService
+    private store: Store,
   ) { }
 
-  ngOnInit(): void {
-  }
 
   public generateAttributes(): void {
-    this.attributeService_.randomize();
+    this.store.dispatch(new AttributeActions.RandomizeAttributes());
     this.recalculateProfessionPoints();
   }
 
@@ -27,13 +24,13 @@ export class ButtonPanelComponent implements OnInit {
    * get fresh data from backend
    */
   public reset(): void {
-    this.attributeService_.fetchCollection();
+    this.store.dispatch(new AttributeActions.FetchAttributes());
     this.recalculateProfessionPoints();
   }
 
 
   private recalculateProfessionPoints(): void {
-    this.professionService_.calcPointsForAll();
+    this.store.dispatch(new ProfessionsActions.CalcPointsForAll());
   }
 
 }

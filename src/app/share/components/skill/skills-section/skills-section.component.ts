@@ -1,13 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { ProffesionsSelectors } from 'src/app/store/proffessions/professions.selectors';
+import { ProfessionsActions } from 'src/app/store/proffessions/proffesions.actions';
+import { SkillActions } from 'src/app/store/skills/skill.actions';
+import { SkillSelectors } from 'src/app/store/skills/skill.selectors';
 
 import { Profession } from '../../../classes/profession';
 import { Skill } from '../../../classes/skill';
 import { POINT_TYPE } from '../../../enums/point-type.enum';
 import { SKILL_NAME } from '../../../enums/skill-name-enum';
 import { Points } from '../../../interfaces/points';
-import { ProfessionService } from '../../../services/profession.service';
-import { SkillService } from '../../../services/skill.service';
 
 @Component({
   selector: 'coc-skills-section',
@@ -16,11 +20,20 @@ import { SkillService } from '../../../services/skill.service';
 })
 
 /**
- * umozliwic przekazywnie skilli,
- * jesli skille nie przekazane generowac jak swiezy komponent
+ * enable passing skills
+ * if skills not passed generate fresh component
  */
 @UntilDestroy()
 export class SkillsSectionComponent implements OnInit {
+  @Select(SkillSelectors.skills)
+  skills$!: Observable<Skill[]>;
+
+  @Select(ProffesionsSelectors.points)
+  points$!: Observable<Points>;
+
+  @Select(ProffesionsSelectors.currentProfession)
+  currentProfession$!: Observable<Profession>;
+
   @Input('show-points') showPoints!: boolean;
   @Input('point-type') pointType!: POINT_TYPE;
   public pointsToSpend!: number;
@@ -32,8 +45,7 @@ export class SkillsSectionComponent implements OnInit {
   private savedProfession_ = false;
   private savedHobby_ = false;
   constructor(
-    private skillService_: SkillService,
-    private professionService_: ProfessionService
+    private store: Store,
   ) { }
 
   get maxRange(): number {
@@ -47,14 +59,12 @@ export class SkillsSectionComponent implements OnInit {
   }
 
   private subSkills(): void {
+    this.store.dispatch(new SkillActions.FetchAll());
 
-    this.skillService_.fetchCollection();
-    this.skillService_.stream$.pipe(untilDestroyed(this)).subscribe(
+    this.skills$.pipe(untilDestroyed(this)).subscribe(
       (list: Skill[]) => {
-
         if (this.pointType !== POINT_TYPE.PROFESSION && this.pointType !== POINT_TYPE.HOBBY) {
           this.skillListToShow = list;
-
         }
         this.skillList_ = list;
 
@@ -64,7 +74,8 @@ export class SkillsSectionComponent implements OnInit {
   }
 
   private subPoints(): void {
-    this.professionService_.points$.pipe(untilDestroyed(this)).subscribe(
+
+    this.points$.pipe(untilDestroyed(this)).subscribe(
       points => {
         this.points_ = points;
         this.resolvePointType();
@@ -88,11 +99,10 @@ export class SkillsSectionComponent implements OnInit {
   }
 
   private subCurrentProffesion(): void {
-    this.professionService_.currentProfession$.subscribe(
-      (profession: Profession) => {
-        this.currentProfession_ = profession;
-        this.enableProfessionSkills(profession);
-      },
+    this.currentProfession$.subscribe(profession => {
+      this.currentProfession_ = profession;
+      this.enableProfessionSkills(profession);
+    },
       (error) => console.error(`error: ${error}`)
 
     );
@@ -135,8 +145,7 @@ export class SkillsSectionComponent implements OnInit {
         this.points_.hobby -= singleSkillSpent;
       }
     });
-
-    this.professionService_.nextPoints(this.points_);
+    this.store.dispatch(new ProfessionsActions.UpdatePoints(this.points_));
   }
 
   public save(): void {
@@ -156,22 +165,19 @@ export class SkillsSectionComponent implements OnInit {
       }
     });
 
-    this.skillService_.updateWith(this.skillList_);
+    this.store.dispatch(new SkillActions.UpdateSkills(this.skillList_));
     this.skillListToShow = JSON.parse(JSON.stringify(this.skillListToShow));
     this.skillListToShow.forEach(skill => skill.disabled = true);
 
     if (this.savedHobby_) {
       this.skillList_.forEach(el => el.disabled = true);
-      this.skillService_.updateWith(this.skillList_);
+      this.store.dispatch(new SkillActions.UpdateSkills(this.skillList_));
     }
   }
 
-  // reset all?
   public edit(): void {
-    if (
-      (this.pointType === POINT_TYPE.PROFESSION && this.savedProfession_)
-      ||
-      (this.pointType === POINT_TYPE.HOBBY && this.savedHobby_)
+    if ((this.pointType === POINT_TYPE.PROFESSION && this.savedProfession_)
+      || (this.pointType === POINT_TYPE.HOBBY && this.savedHobby_)
       && this.pointsToSpend > 0
     ) {
       this.skillListToShow.forEach(skill => skill.disabled = false);

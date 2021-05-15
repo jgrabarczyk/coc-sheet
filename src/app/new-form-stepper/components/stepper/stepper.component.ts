@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-
-import { ProfessionService } from '../../../share/services/profession.service';
+import { Store } from '@ngxs/store';
+import { take } from 'rxjs/operators';
+import { ProfessionsActions } from 'src/app/store/proffessions/proffesions.actions';
 
 @Component({
   selector: 'coc-stepper',
@@ -17,9 +18,9 @@ export class StepperComponent implements OnInit {
 
   constructor(
     private formBuilder_: FormBuilder,
-    private professionService_: ProfessionService
+    private store: Store
   ) {
-    // this.initFormArray();
+    this.initFormArray();
   }
 
   ngOnInit(): void {
@@ -29,18 +30,19 @@ export class StepperComponent implements OnInit {
 
   }
 
-  // private initFormArray(): void {
-  //   this.stepperForm_ = this.formBuilder_.group({
-  //     attributes: this.attributesForm_,
-  //     profession: this.professionForm_,
-  //     professinSkills: this.professionSkillsForm,
-  //     hobbySkills: this.hobbyskillsForm
-  //   });
-  // }
+  private initFormArray(): void {
+    this.stepperForm_ = this.formBuilder_.group({
+      attributes: this.attributesForm_,
+      profession: this.professionForm_,
+      professinSkills: this.professionSkillsForm,
+      hobbySkills: this.hobbyskillsForm
+    });
+  }
 
   refreshProfessions(): void {
-    this.professionService_.fetchCollection();
-    this.professionService_.calcPointsForAll();
+    this.store.dispatch(new ProfessionsActions.FetchAll())
+      .pipe(take(1))
+      .subscribe(_ => this.store.dispatch(new ProfessionsActions.CalcPointsForAll()));
   }
 
 }

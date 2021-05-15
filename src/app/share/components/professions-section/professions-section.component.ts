@@ -1,42 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatListOption } from '@angular/material/list';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { ProffesionsSelectors } from 'src/app/store/proffessions/professions.selectors';
+import { ProfessionsActions } from 'src/app/store/proffessions/proffesions.actions';
+import { SkillActions } from 'src/app/store/skills/skill.actions';
 
 import { Profession } from '../../classes/profession';
-import { ProfessionService } from '../../services/profession.service';
-import { SkillService } from '../../services/skill.service';
 
 @Component({
   selector: 'coc-professions-section',
   templateUrl: './professions-section.component.html',
   styleUrls: ['./professions-section.component.scss']
 })
-export class ProfessionsSectionComponent implements OnInit {
+export class ProfessionsSectionComponent {
+  @Select(ProffesionsSelectors.professions)
+  professions$!: Observable<Profession[]>;
+
   private professionList_: Profession[] = [];
 
   constructor(
-    private professionService_: ProfessionService,
-    private skillService_: SkillService
+    private store: Store
   ) { }
 
   get professionList(): Profession[] {
     return this.professionList_;
   }
 
-  public ngOnInit(): void {
-    this.subProfessions();
-  }
-
-  private subProfessions(): void {
-    this.professionService_.stream$.subscribe(
-      professionList => {
-        this.professionList_ = professionList;
-      }
-    );
-  }
-
   onGroupsChange(newOption: MatListOption[]): void {
-    this.skillService_.disableAll();
-    this.professionService_.updateCurrentProfession(newOption[0].value);
+    const profession: Profession = newOption[0].value;
+    console.log('on group change update points');
+    this.store.dispatch([
+      new SkillActions.DisableAll(),
+      new ProfessionsActions.UpdateCurrentProfession(profession),
+      new ProfessionsActions.UpdatePoints({
+        hobby: profession.pointsHobby,
+        profession: profession.pointsProfession
+      })
+    ]);
   }
 
 

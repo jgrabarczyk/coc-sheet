@@ -8,16 +8,15 @@ import { BasicAttribute } from './basic-attribute';
  */
 export class Skill extends BasicAttribute {
     public baseValue: number;
-
+    public disabled = true;
+    public checked: boolean;
     constructor(
         sDTO: SkillDTO,
-        public checked: boolean = false,
-        public disabled = true
+        checked?: boolean,
     ) {
         super(sDTO.name, sDTO.value || 0);
         this.baseValue = sDTO.baseValue;
-        this.checked = checked;
-        this.disabled = disabled;
+        this.checked = checked || false;
     }
 
     public reset(): void {

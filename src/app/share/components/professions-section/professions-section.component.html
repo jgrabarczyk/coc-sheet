@@ -4,7 +4,7 @@
   (selectionChange)="onGroupsChange(professions.selectedOptions.selected)"
 >
   <mat-list-option
-    *ngFor="let profession of professionList"
+    *ngFor="let profession of professions$ | async"
     [value]="profession"
   >
     <h4>{{ profession.name }}</h4>
