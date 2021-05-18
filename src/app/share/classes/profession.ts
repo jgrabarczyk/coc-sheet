@@ -10,8 +10,8 @@ export interface ProfessionAttributes {
 }
 
 export class Profession {
-    public pointsProfession!: number;
-    public pointsHobby!: number;
+    public pointsProfession = 0;
+    public pointsHobby = 0;
     public name: string;
     public skills: Array<SKILL_NAME | SKILL_NAME[]>;
     public wealth: [number, number];
@@ -19,13 +19,11 @@ export class Profession {
 
     constructor(
         pDTO: ProfessionDTO,
-        // private attributeService_: AttributeService
     ) {
         this.name = pDTO.name;
         this.skills = pDTO.skills;
         this.wealth = pDTO.wealth;
         this.professionAttributes = pDTO.professionAttributes;
-        // this.calcPoints();
     }
 
     // method to calc summed points to spent for progress

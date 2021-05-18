@@ -1,4 +1,4 @@
-<mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+<mat-horizontal-stepper [linear]="false" #stepper="matHorizontalStepper">
   <mat-step>
     <ng-template matStepLabel>Wygeneruj Atrybuty</ng-template>
     <coc-button-panel></coc-button-panel>
@@ -19,7 +19,7 @@
 
   <mat-step>
     <ng-template matStepLabel>Rozdaj puntky profesji</ng-template>
-    <coc-skills-section [show-points]="true" [point-type]="1">
+    <coc-skills-section [show-points]="true" [point-type]="pointTypes.PROFESSION">
     </coc-skills-section>
 
     <div>
@@ -28,23 +28,23 @@
     </div>
   </mat-step>
 
-  <!-- <mat-step>
+  <mat-step>
     <ng-template matStepLabel>Rozdaj puntky hobby</ng-template>
-    <coc-skills-section [show-points]="true" [point-type]="2">
+    <coc-skills-section [show-points]="true" [point-type]="pointTypes.HOBBY">
     </coc-skills-section>
 
     <div>
       <button mat-button matStepperPrevious>Powrót</button>
       <button mat-button matStepperNext>Dalej</button>
     </div>
-  </mat-step> -->
+  </mat-step>
 
-  <!-- <mat-step>
+  <mat-step>
     <ng-template matStepLabel>Podsumowanie</ng-template>
     <coc-sheet></coc-sheet>
     <div>
       <button mat-button matStepperPrevious>Powrót</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
-  </mat-step> -->
+  </mat-step>
 </mat-horizontal-stepper>

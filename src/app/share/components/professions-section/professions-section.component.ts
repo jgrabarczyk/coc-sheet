@@ -1,43 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatListOption } from '@angular/material/list';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { ProfessionsActions } from 'src/app/store/professions/profesions.actions';
+import { ProffesionsSelectors } from 'src/app/store/professions/professions.selectors';
+import { SkillActions } from 'src/app/store/skills/skill.actions';
 
 import { Profession } from '../../classes/profession';
-import { ProfessionService } from '../../services/profession.service';
-import { SkillService } from '../../services/skill.service';
 
 @Component({
   selector: 'coc-professions-section',
   templateUrl: './professions-section.component.html',
   styleUrls: ['./professions-section.component.scss']
 })
-export class ProfessionsSectionComponent implements OnInit {
-  private professionList_: Profession[] = [];
+export class ProfessionsSectionComponent {
+  @Select(ProffesionsSelectors.professions)
+  professions$!: Observable<Profession[]>;
 
   constructor(
-    private professionService_: ProfessionService,
-    private skillService_: SkillService
+    private store: Store
   ) { }
 
-  get professionList(): Profession[] {
-    return this.professionList_;
-  }
-
-  public ngOnInit(): void {
-    this.subProfessions();
-  }
-
-  private subProfessions(): void {
-    this.professionService_.stream$.subscribe(
-      professionList => {
-        this.professionList_ = professionList;
-      }
-    );
-  }
-
   onGroupsChange(newOption: MatListOption[]): void {
-    this.skillService_.disableAll();
-    this.professionService_.updateCurrentProfession(newOption[0].value);
+    const profession: Profession = newOption[0].value;
+    this.store.dispatch([
+      new SkillActions.DisableAll(),
+      new ProfessionsActions.UpdateCurrentProfession(profession),
+      new ProfessionsActions.UpdatePointsInProfessionSection({
+        hobby: profession.pointsHobby,
+        profession: profession.pointsProfession
+      })
+    ]);
   }
-
-
 }

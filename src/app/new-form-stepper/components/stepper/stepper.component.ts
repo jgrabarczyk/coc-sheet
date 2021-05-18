@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-
-import { ProfessionService } from '../../../share/services/profession.service';
+import { POINT_TYPE } from 'src/app/share/enums/point-type.enum';
 
 @Component({
   selector: 'coc-stepper',
@@ -9,6 +8,7 @@ import { ProfessionService } from '../../../share/services/profession.service';
   styleUrls: ['./stepper.component.scss']
 })
 export class StepperComponent implements OnInit {
+  public pointTypes = POINT_TYPE;
   private stepperForm_!: FormGroup;
   private attributesForm_!: FormArray;
   private professionForm_!: FormArray;
@@ -17,30 +17,20 @@ export class StepperComponent implements OnInit {
 
   constructor(
     private formBuilder_: FormBuilder,
-    private professionService_: ProfessionService
-  ) {
-    // this.initFormArray();
-  }
+  ) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.refreshProfessions();
-    }, 1);
-
+    this.initFormArray();
   }
 
-  // private initFormArray(): void {
-  //   this.stepperForm_ = this.formBuilder_.group({
-  //     attributes: this.attributesForm_,
-  //     profession: this.professionForm_,
-  //     professinSkills: this.professionSkillsForm,
-  //     hobbySkills: this.hobbyskillsForm
-  //   });
-  // }
-
-  refreshProfessions(): void {
-    this.professionService_.fetchCollection();
-    this.professionService_.calcPointsForAll();
+  private initFormArray(): void {
+    this.stepperForm_ = this.formBuilder_.group({
+      attributes: this.attributesForm_,
+      profession: this.professionForm_,
+      professinSkills: this.professionSkillsForm,
+      hobbySkills: this.hobbyskillsForm
+    });
   }
+
 
 }

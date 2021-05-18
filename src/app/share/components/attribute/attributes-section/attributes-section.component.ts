@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { AttributeService } from 'src/app/share/services/attribute.service';
-
+import { Component, Input } from '@angular/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { AttributeSelectors } from 'src/app/store/attrubutes/attributes.selectors';
 import { Attribute } from '../../../classes/attribute';
 
 @UntilDestroy()
@@ -10,31 +11,9 @@ import { Attribute } from '../../../classes/attribute';
   templateUrl: './attributes-section.component.html',
   styleUrls: ['./attributes-section.component.scss']
 })
-export class AttributesSectionComponent implements OnInit {
-  private attributeList_!: Attribute[];
+export class AttributesSectionComponent  {
+  @Select(AttributeSelectors.attributes)
+  public attributes$!: Observable<Attribute[]>;
 
   @Input('enable-roll') enableRoll = false;
-
-  constructor(
-    private attributeService_: AttributeService,
-  ) { }
-
-  get attributeList(): Attribute[] {
-    return this.attributeList_;
-  }
-
-  ngOnInit(): void {
-    this.subAttributes();
-  }
-
-  private subAttributes(): void {
-    this.attributeService_.fetchCollection();
-
-    this.attributeService_.stream$.pipe(untilDestroyed(this)).subscribe(
-      (list: Attribute[]) => this.attributeList_ = list,
-      (error) => console.error(`error: ${error}`)
-    );
-  }
-
-
 }

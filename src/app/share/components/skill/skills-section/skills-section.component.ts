@@ -1,13 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { ProfessionsActions } from 'src/app/store/professions/profesions.actions';
+import { ProffesionsSelectors } from 'src/app/store/professions/professions.selectors';
+import { SkillActions } from 'src/app/store/skills/skill.actions';
+import { SkillSelectors } from 'src/app/store/skills/skill.selectors';
 import { Profession } from '../../../classes/profession';
 import { Skill } from '../../../classes/skill';
 import { POINT_TYPE } from '../../../enums/point-type.enum';
 import { SKILL_NAME } from '../../../enums/skill-name-enum';
 import { Points } from '../../../interfaces/points';
-import { ProfessionService } from '../../../services/profession.service';
-import { SkillService } from '../../../services/skill.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'coc-skills-section',
@@ -16,11 +20,20 @@ import { SkillService } from '../../../services/skill.service';
 })
 
 /**
- * umozliwic przekazywnie skilli,
- * jesli skille nie przekazane generowac jak swiezy komponent
+ * enable passing skills
+ * if skills not passed generate fresh component
  */
 @UntilDestroy()
 export class SkillsSectionComponent implements OnInit {
+  @Select(SkillSelectors.skills)
+  skills$!: Observable<Skill[]>;
+
+  @Select(ProffesionsSelectors.points)
+  points$!: Observable<Points>;
+
+  @Select(ProffesionsSelectors.currentProfession)
+  currentProfession$!: Observable<Profession>;
+
   @Input('show-points') showPoints!: boolean;
   @Input('point-type') pointType!: POINT_TYPE;
   public pointsToSpend!: number;
@@ -31,9 +44,9 @@ export class SkillsSectionComponent implements OnInit {
   private maxRange_!: number;
   private savedProfession_ = false;
   private savedHobby_ = false;
+
   constructor(
-    private skillService_: SkillService,
-    private professionService_: ProfessionService
+    private store: Store,
   ) { }
 
   get maxRange(): number {
@@ -46,15 +59,77 @@ export class SkillsSectionComponent implements OnInit {
     this.subCurrentProffesion();
   }
 
+  check(): void {
+    // get max Points
+    this.points_ = {
+      profession: this.currentProfession_.pointsProfession,
+      hobby: this.currentProfession_.pointsHobby
+    };
+
+    this.skillListToShow.forEach(el => {
+
+      // check by how much the value has changed
+      const singleSkillSpent = el.value - el.baseValue;
+
+      // update points due to pointType
+      if (this.pointType === POINT_TYPE.PROFESSION && !this.savedProfession_) {
+        this.points_.profession -= singleSkillSpent;
+      }
+      if (this.pointType === POINT_TYPE.HOBBY && !this.savedHobby_) {
+        this.points_.hobby -= singleSkillSpent;
+      }
+    });
+    this.store.dispatch(new ProfessionsActions.UpdatePointsInSkillSection(this.points_));
+  }
+
+  save(): void {
+    this.skillList_.forEach(skill => {
+      const skillToShow = this.skillListToShow.filter(el => el.name === skill.name)[0];
+
+      if (!skillToShow) { return; }
+
+      skill.baseValue = skillToShow.value;
+      skill.value = skillToShow.value;
+
+      if (this.pointType === POINT_TYPE.PROFESSION) {
+        this.savedProfession_ = true;
+      }
+      if (this.pointType === POINT_TYPE.HOBBY) {
+        this.savedHobby_ = true;
+      }
+    });
+
+    this.store.dispatch(new SkillActions.UpdateSkills(this.skillList_));
+    this.skillListToShow = JSON.parse(JSON.stringify(this.skillListToShow));
+    this.skillListToShow.forEach(skill => skill.disabled = true);
+
+    if (this.savedHobby_) {
+      this.skillList_.forEach(el => el.disabled = true);
+      this.store.dispatch(new SkillActions.UpdateSkills(this.skillList_));
+    }
+  }
+
+  edit(): void {
+    if ((this.pointType === POINT_TYPE.PROFESSION && this.savedProfession_)
+      || (this.pointType === POINT_TYPE.HOBBY && this.savedHobby_)
+      && this.pointsToSpend > 0
+    ) {
+      this.skillListToShow.forEach(skill => skill.disabled = false);
+
+      if (this.pointType === POINT_TYPE.PROFESSION) {
+        this.savedProfession_ = false;
+      }
+      if (this.pointType === POINT_TYPE.HOBBY) {
+        this.savedHobby_ = false;
+      }
+    }
+  }
+
   private subSkills(): void {
-
-    this.skillService_.fetchCollection();
-    this.skillService_.stream$.pipe(untilDestroyed(this)).subscribe(
+    this.skills$.pipe(untilDestroyed(this)).subscribe(
       (list: Skill[]) => {
-
         if (this.pointType !== POINT_TYPE.PROFESSION && this.pointType !== POINT_TYPE.HOBBY) {
           this.skillListToShow = list;
-
         }
         this.skillList_ = list;
 
@@ -64,17 +139,24 @@ export class SkillsSectionComponent implements OnInit {
   }
 
   private subPoints(): void {
-    this.professionService_.points$.pipe(untilDestroyed(this)).subscribe(
-      points => {
-        this.points_ = points;
-        this.resolvePointType();
-      },
-      (error) => console.error(`error: ${error}`)
-
-    );
+    this.points$
+      .pipe(
+        untilDestroyed(this)
+      )
+      .subscribe(
+        points => {
+          this.points_ = points;
+          this.resolvePointType();
+        },
+        (error) => console.error(`error: ${error}`)
+      );
   }
 
   private resolvePointType(): void {
+    if (!this.points_ || !this.pointType) {
+      return;
+    }
+
     switch (this.pointType) {
       case POINT_TYPE.PROFESSION:
         if (this.savedProfession_) { return; }
@@ -88,11 +170,10 @@ export class SkillsSectionComponent implements OnInit {
   }
 
   private subCurrentProffesion(): void {
-    this.professionService_.currentProfession$.subscribe(
-      (profession: Profession) => {
-        this.currentProfession_ = profession;
-        this.enableProfessionSkills(profession);
-      },
+    this.currentProfession$.subscribe(profession => {
+      this.currentProfession_ = profession;
+      this.enableProfessionSkills(profession);
+    },
       (error) => console.error(`error: ${error}`)
 
     );
@@ -113,76 +194,5 @@ export class SkillsSectionComponent implements OnInit {
     }
 
     this.skillListToShow = this.skillList_.filter(el => !el.disabled);
-  }
-
-  public check(): void {
-    // get max Points
-    this.points_ = {
-      profession: this.currentProfession_.pointsProfession,
-      hobby: this.currentProfession_.pointsHobby
-    };
-
-    this.skillListToShow.forEach(el => {
-
-      // check by how much the value has changed
-      const singleSkillSpent = el.value - el.baseValue;
-
-      // update points due to pointType
-      if (this.pointType === POINT_TYPE.PROFESSION && !this.savedProfession_) {
-        this.points_.profession -= singleSkillSpent;
-      }
-      if (this.pointType === POINT_TYPE.HOBBY && !this.savedHobby_) {
-        this.points_.hobby -= singleSkillSpent;
-      }
-    });
-
-    this.professionService_.nextPoints(this.points_);
-  }
-
-  public save(): void {
-    this.skillList_.forEach(skill => {
-      const skillToShow = this.skillListToShow.filter(el => el.name === skill.name)[0];
-
-      if (!skillToShow) { return; }
-
-      skill.baseValue = skillToShow.value;
-      skill.value = skillToShow.value;
-
-      if (this.pointType === POINT_TYPE.PROFESSION) {
-        this.savedProfession_ = true;
-      }
-      if (this.pointType === POINT_TYPE.HOBBY) {
-        this.savedHobby_ = true;
-      }
-    });
-
-    this.skillService_.updateWith(this.skillList_);
-    this.skillListToShow = JSON.parse(JSON.stringify(this.skillListToShow));
-    this.skillListToShow.forEach(skill => skill.disabled = true);
-
-    if (this.savedHobby_) {
-      this.skillList_.forEach(el => el.disabled = true);
-      this.skillService_.updateWith(this.skillList_);
-    }
-  }
-
-  // reset all?
-  public edit(): void {
-    if (
-      (this.pointType === POINT_TYPE.PROFESSION && this.savedProfession_)
-      ||
-      (this.pointType === POINT_TYPE.HOBBY && this.savedHobby_)
-      && this.pointsToSpend > 0
-    ) {
-      this.skillListToShow.forEach(skill => skill.disabled = false);
-
-      if (this.pointType === POINT_TYPE.PROFESSION) {
-        this.savedProfession_ = false;
-      }
-      if (this.pointType === POINT_TYPE.HOBBY) {
-        this.savedHobby_ = false;
-      }
-    }
-
   }
 }
