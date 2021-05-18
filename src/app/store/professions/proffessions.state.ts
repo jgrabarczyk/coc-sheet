@@ -8,7 +8,7 @@ import { ATTRIBUTE_NAME } from 'src/app/share/enums/attribute-name.enum';
 import { Points } from 'src/app/share/interfaces/points';
 import { ProfessionRestService } from 'src/app/share/services/rest/profession-rest.service';
 import { AttributeSelectors } from '../attrubutes/attributes.selectors';
-import { ProfessionsActions } from './proffesions.actions';
+import { ProfessionsActions } from './profesions.actions';
 
 export class ProfessionStateModel {
   professions!: Profession[];
@@ -71,10 +71,10 @@ export class ProfessionState {
     patchState({ currentProfession });
 
   }
-  @Action(ProfessionsActions.UpdatePoints)
+  @Action(ProfessionsActions.UpdatePointsInSkillSection)
   updatePoints(
     { patchState }: StateContext<ProfessionStateModel>,
-    { points }: ProfessionsActions.UpdatePoints
+    { points }: ProfessionsActions.UpdatePointsInSkillSection
   ): void {
     patchState({ points });
 

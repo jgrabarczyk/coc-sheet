@@ -25,7 +25,7 @@ export class AttributeState {
     private attributeRestService_: AttributeRestService
   ) { }
 
-  @Action(AttributeActions.FetchAttributes)
+  @Action([AttributeActions.FetchAttributesInBtnPanel, AttributeActions.FetchAttributesInAttribute])
   fetchAttributes(
     { patchState }: StateContext<AttributeStateModel>,
   ): Observable<AttributeDTO[]> {

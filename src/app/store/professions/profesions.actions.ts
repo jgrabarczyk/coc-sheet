@@ -15,8 +15,13 @@ export namespace ProfessionsActions {
     constructor(public currentProfession: Profession) { }
   }
 
-  export class UpdatePoints {
-    static readonly type = '[Professions] Update points';
+  export class UpdatePointsInProfessionSection {
+    static readonly type = '[ProfessionsSectionComponent] Update points';
+    constructor(public points: Points) { }
+  }
+
+  export class UpdatePointsInSkillSection {
+    static readonly type = '[SkillSectionComponent] Update points';
     constructor(public points: Points) { }
   }
 

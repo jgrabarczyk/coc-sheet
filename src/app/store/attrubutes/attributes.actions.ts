@@ -1,8 +1,12 @@
 
 export namespace AttributeActions {
 
-  export class FetchAttributes {
-    static readonly type = '[App Atttribute API] Fetch attributes';
+  export class FetchAttributesInAttribute {
+    static readonly type = '[AttributeComponent Attribute API] Fetch attributes';
+  }
+
+  export class FetchAttributesInBtnPanel {
+    static readonly type = '[ButtonPanelComponent Atttribute API] Fetch attributes';
   }
 
   export class RandomizeAttributes {

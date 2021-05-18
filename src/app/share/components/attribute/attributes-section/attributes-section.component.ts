@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AttributeActions } from 'src/app/store/attrubutes/attributes.actions';
 import { AttributeSelectors } from 'src/app/store/attrubutes/attributes.selectors';
 import { Attribute } from '../../../classes/attribute';
 
@@ -12,24 +11,9 @@ import { Attribute } from '../../../classes/attribute';
   templateUrl: './attributes-section.component.html',
   styleUrls: ['./attributes-section.component.scss']
 })
-export class AttributesSectionComponent implements OnInit {
+export class AttributesSectionComponent  {
   @Select(AttributeSelectors.attributes)
   public attributes$!: Observable<Attribute[]>;
 
   @Input('enable-roll') enableRoll = false;
-
-  constructor(
-    private store: Store
-  ) { }
-
-
-  ngOnInit(): void {
-    this.subAttributes();
-  }
-
-  private subAttributes(): void {
-    this.store.dispatch(new AttributeActions.FetchAttributes());
-  }
-
-
 }

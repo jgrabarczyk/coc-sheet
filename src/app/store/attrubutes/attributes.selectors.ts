@@ -20,7 +20,7 @@ export class AttributeSelectors {
   static attributeValue(name: ATTRIBUTE_NAME): (attribute: Attribute) => number {
     return createSelector(
       [AttributeSelectors.attribute(name)],
-      (attribute: Attribute) => attribute.value
+      (attribute: Attribute) => attribute?.value
     );
   }
 

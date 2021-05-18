@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Store } from '@ngxs/store';
-import { take } from 'rxjs/operators';
-import { ProfessionsActions } from 'src/app/store/proffessions/proffesions.actions';
+import { POINT_TYPE } from 'src/app/share/enums/point-type.enum';
 
 @Component({
   selector: 'coc-stepper',
@@ -10,6 +8,7 @@ import { ProfessionsActions } from 'src/app/store/proffessions/proffesions.actio
   styleUrls: ['./stepper.component.scss']
 })
 export class StepperComponent implements OnInit {
+  public pointTypes = POINT_TYPE;
   private stepperForm_!: FormGroup;
   private attributesForm_!: FormArray;
   private professionForm_!: FormArray;
@@ -18,16 +17,10 @@ export class StepperComponent implements OnInit {
 
   constructor(
     private formBuilder_: FormBuilder,
-    private store: Store
-  ) {
-    this.initFormArray();
-  }
+  ) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.refreshProfessions();
-    }, 1);
-
+    this.initFormArray();
   }
 
   private initFormArray(): void {
@@ -39,10 +32,5 @@ export class StepperComponent implements OnInit {
     });
   }
 
-  refreshProfessions(): void {
-    this.store.dispatch(new ProfessionsActions.FetchAll())
-      .pipe(take(1))
-      .subscribe(_ => this.store.dispatch(new ProfessionsActions.CalcPointsForAll()));
-  }
 
 }

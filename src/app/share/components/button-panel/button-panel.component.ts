@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { AttributeActions } from 'src/app/store/attrubutes/attributes.actions';
-import { ProfessionsActions } from 'src/app/store/proffessions/proffesions.actions';
+import { ProfessionsActions } from 'src/app/store/professions/profesions.actions';
 
 @Component({
   selector: 'coc-button-panel',
@@ -14,7 +14,6 @@ export class ButtonPanelComponent  {
     private store: Store,
   ) { }
 
-
   public generateAttributes(): void {
     this.store.dispatch(new AttributeActions.RandomizeAttributes());
     this.recalculateProfessionPoints();
@@ -24,7 +23,7 @@ export class ButtonPanelComponent  {
    * get fresh data from backend
    */
   public reset(): void {
-    this.store.dispatch(new AttributeActions.FetchAttributes());
+    this.store.dispatch(new AttributeActions.FetchAttributesInBtnPanel());
     this.recalculateProfessionPoints();
   }
 

@@ -11,10 +11,10 @@ export class SkillSelectors {
     return state.skills;
   }
 
-  static skill(name: SKILL_NAME): (skills: Skill[]) => Skill {
+  static skill(name: SKILL_NAME): (state: SkillStateModel) => Skill {
     return createSelector(
       [SkillState],
-      (skills: Skill[]) => skills.find(el => el.name === name) as Skill
+      (state: SkillStateModel) => state.skills.find(el => el.name === name) as Skill
     );
   }
 
